@@ -151,7 +151,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -3.35, y: -4.498, z: 0}
-  m_LocalScale: {x: 2.865, y: 4.12981, z: -0.18035461}
+  m_LocalScale: {x: 3, y: 4, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 311649994}
@@ -808,8 +808,10 @@ GameObject:
   - component: {fileID: 725478649}
   - component: {fileID: 725478648}
   - component: {fileID: 725478647}
-  m_Layer: 0
-  m_Name: YellowCube
+  - component: {fileID: 725478652}
+  - component: {fileID: 725478651}
+  m_Layer: 6
+  m_Name: EventOnlyCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -895,12 +897,77 @@ Transform:
   m_GameObject: {fileID: 725478646}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 239.467, y: 0.48, z: 102.15}
+  m_LocalPosition: {x: 237.62, y: 0.48, z: 107.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &725478651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725478646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a007843d307d1a42af3a7251f239715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1168645832}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_material
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2100000, guid: f397b31be3162e44bbf221c7a1bd98bc, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 30219971}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_material
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2100000, guid: 8aa0ecced4bb7c7468d6526d481e207a, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1939895031}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_material
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2100000, guid: 05df8c11743e17a43bb86de7bb98d9c6, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &725478652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725478646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b673903670c09114da1b6c02521ce204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useEvents: 1
+  promptMessage: '[E] to trigger events'
 --- !u!1 &955923168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,7 +1090,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.47, y: -4.498, z: 0}
-  m_LocalScale: {x: 2.865, y: 4.12981, z: -0.18035461}
+  m_LocalScale: {x: 3, y: 4, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 311649994}
@@ -1217,6 +1284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a145c7a59d7d64da3050d751f5c71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useEvents: 0
   promptMessage: Use Red Cube
 --- !u!1 &1305897834
 GameObject:
@@ -1608,6 +1676,7 @@ GameObject:
   - component: {fileID: 1688305172}
   - component: {fileID: 1688305171}
   - component: {fileID: 1688305175}
+  - component: {fileID: 1688305176}
   m_Layer: 6
   m_Name: Keypad
   m_TagString: Untagged
@@ -1713,8 +1782,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69d168b6c70caf44b82eb34c1c1b1ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useEvents: 1
   promptMessage: '[E] to open door'
   door: {fileID: 311649993}
+--- !u!114 &1688305176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688305170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a007843d307d1a42af3a7251f239715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1168645832}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_material
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2100000, guid: f397b31be3162e44bbf221c7a1bd98bc, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Material, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1888158829
 GameObject:
   m_ObjectHideFlags: 0
@@ -2375,7 +2472,7 @@ SceneRoots:
   - {fileID: 8824128303271213024}
   - {fileID: 1182849932}
   - {fileID: 725478650}
-  - {fileID: 2003769777}
-  - {fileID: 1987715881}
   - {fileID: 311649994}
   - {fileID: 1305897835}
+  - {fileID: 2003769777}
+  - {fileID: 1987715881}

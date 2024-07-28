@@ -4,10 +4,13 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
+    public bool useEvents;
     public string promptMessage;
 
     public void BaseInteract() //accessible by Player
     {
+        if (useEvents)
+            GetComponent<InteractionEvent>().OnInteract.Invoke();
         Interact();
     }
 
