@@ -10,13 +10,13 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField]
     private LayerMask mask;
     private PlayerUI playerUI;
-    private InputManager inputManager;
+    private PlayerInputManager inputManager;
 
     void Start()
     {
         cam = GetComponent<PlayerLook>().cam;
         playerUI = GetComponent<PlayerUI>();
-        inputManager = GetComponent<InputManager>();
+        inputManager = GetComponent<PlayerInputManager>();
     }
 
     void Update()

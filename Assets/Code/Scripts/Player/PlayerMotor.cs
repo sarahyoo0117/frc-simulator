@@ -26,39 +26,45 @@ public class PlayerMotor : MonoBehaviour
 
     void Update()
     {
-        isGrounded = controller.isGrounded; //TODO: fix or create my own
-
-        if (lerpCrouch)
+        if (controller != null && controller.enabled == true)
         {
-            crouchTimer += Time.deltaTime;
-            float p = crouchTimer / 1;
-            p *= p;
-            if (isCrouching)
-                controller.height = Mathf.Lerp(controller.height, 1, p);
-            else
-                controller.height = Mathf.Lerp(controller.height, 2, p);
+            isGrounded = controller.isGrounded; //TODO: fix or create my own
 
-            if (p > 1)
+            if (lerpCrouch)
             {
-                lerpCrouch = false;
-                crouchTimer = 0f;
+                crouchTimer += Time.deltaTime;
+                float p = crouchTimer / 1;
+                p *= p;
+                if (isCrouching)
+                    controller.height = Mathf.Lerp(controller.height, 1, p);
+                else
+                    controller.height = Mathf.Lerp(controller.height, 2, p);
+
+                if (p > 1)
+                {
+                    lerpCrouch = false;
+                    crouchTimer = 0f;
+                }
             }
         }
-        
     }
 
     public void ProcessMove(Vector2 input)
     {
-        Vector3 moveDirection = Vector3.zero;
-        moveDirection.x = input.x;
-        moveDirection.z = input.y;
-        controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime);
-        playerVelocity.y -= mass * gravity * Time.deltaTime;
+        if (controller != null && controller.enabled == true)
+        {
+            Vector3 moveDirection = Vector3.zero;
+            moveDirection.x = input.x;
+            moveDirection.z = input.y;
+            controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime);
+       
+            playerVelocity.y -= mass * gravity * Time.deltaTime;
 
-        if (isGrounded && playerVelocity.y < 0)
-            playerVelocity.y = -2f;
+            if (isGrounded && playerVelocity.y < 0)
+                playerVelocity.y = -2f;
 
-         controller.Move(playerVelocity * Time.deltaTime);
+             controller.Move(playerVelocity * Time.deltaTime);
+        }
     }
 
     public void Jump()
