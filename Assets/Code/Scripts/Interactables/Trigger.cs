@@ -4,33 +4,39 @@ using UnityEngine;
 
 public class Trigger : Interactable
 {
+    [Header("Cameras")]
     public GameObject Cam1; //default player main cam
     public GameObject Cam2; //drive station cam
     public GameObject Cam3; //robot first person cam
     public int CamManager;
 
+    [Header("Play Settings")]
     public CharacterController playerController;
-    public CharacterController robotController;
+    public GameObject robot;
 
-    Material triggerMaterial;
+    private Material triggerMaterial;
     private bool isPlaying;
+    private RobotInputManager robotInputManager;
 
     void Start()
     {
        triggerMaterial = gameObject.GetComponent<Renderer>().material;
-       robotController.enabled = false;
+       robotInputManager = robot.GetComponent<RobotInputManager>();
+       robotInputManager.isTeleop = false;
        playerController.enabled = true;
+       ActivateCam1();
     }
 
     private void Update()
     {
         if (isPlaying)
         {
+            //TODO: add GamePad Buttons
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 isPlaying = false;
+                robotInputManager.isTeleop = false;
                 triggerMaterial.color = Color.green;
-                robotController.enabled = false;
                 playerController.enabled = true;
                 ActivateCam1();
             }
@@ -44,9 +50,9 @@ public class Trigger : Interactable
     protected override void Interact()
     {
         isPlaying = true;
+        robotInputManager.isTeleop = true;
         triggerMaterial.color = Color.red;
         playerController.enabled = false;
-        robotController.enabled = true;
         ActivateCam2();
     }
 
