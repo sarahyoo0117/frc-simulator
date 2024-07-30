@@ -12,11 +12,9 @@ public class PlayerMotor : MonoBehaviour
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool isGrounded;
-
     private bool isCrouching;
     private float crouchTimer;
     private bool lerpCrouch;
-
     private bool isSprinting;
 
     void Start()

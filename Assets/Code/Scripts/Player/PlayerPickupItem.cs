@@ -8,6 +8,7 @@ public class PlayerPickUpItem : MonoBehaviour
     private GameObject m_hand;
     public GameObject Item;
     public bool hasItem;
+    public bool hasNote;
 
     private PlayerInputManager m_inputManager;
 
@@ -18,23 +19,31 @@ public class PlayerPickUpItem : MonoBehaviour
 
     private void Update()
     {
+        if (hasItem)
+            Item.transform.position = m_hand.transform.position;
+
         if (m_inputManager.onFoot.Dump.triggered && hasItem)
         {
             Item.GetComponent<Rigidbody>().isKinematic = false;
             Item.transform.parent = null;
             hasItem = false;
+
+            if (hasNote) hasNote = false;
         }
     }
 
     public void PickupItem(GameObject pickedItem)
     {
-        if (pickedItem != null && !hasItem)
+        if (pickedItem != null && hasItem == false)
         {
             Item = pickedItem;
             Item.GetComponent<Rigidbody>().isKinematic = true;
-            Item.transform.position = m_hand.transform.position;
             Item.transform.parent = m_hand.transform;
+            Item.transform.position = m_hand.transform.position;
             hasItem = true;
+
+            if (Item.GetComponent<Note>() != null)
+                hasNote = true;
         }
     }
 }
