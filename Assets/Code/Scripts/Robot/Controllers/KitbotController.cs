@@ -10,36 +10,18 @@ public class KitbotController : RobotController
     public GameObject Motor2;
     public float rotateSpeed = 300f;
 
-    [Header("Note Settings")]
-    public GameObject Note;
-    public Transform ReadyNoteTransform;
-    public Transform FeededNoteTransform;
-
     private float z = 0f;
 
     public override void Feed()
     {
         z -= Time.deltaTime * rotateSpeed;
         RotateMotors();
-
-        if (Note != null)
-        {
-
-            Note.transform.position = FeededNoteTransform.position;
-            Note.transform.rotation = FeededNoteTransform.rotation;
-        }
     }
 
     public override void Shoot()
     {
         z += Time.deltaTime * rotateSpeed;
         RotateMotors();
-
-        if (Note != null)
-        {
-            Note.transform.position = ReadyNoteTransform.position;
-            Note.transform.rotation = ReadyNoteTransform.rotation;
-        }
     }
 
     private void RotateMotors()

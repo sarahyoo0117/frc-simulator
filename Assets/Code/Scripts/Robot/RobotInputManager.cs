@@ -7,13 +7,15 @@ public class RobotInputManager : MonoBehaviour
 {
     public RobotInput.OnFootActions onFoot;
     public bool isTeleop;
+    public bool isFeeding;
+    public bool isShooting;
+    [SerializeField]
+    private RobotNoteInsert m_noteInsert;
 
     private RobotMotor m_motor;
     private RobotInput m_input;
     private RobotController m_controller;
-
-    public bool isFeeding;
-    public bool isShooting;
+    private Animator m_animator;
 
     private void Awake()
     {
@@ -22,15 +24,13 @@ public class RobotInputManager : MonoBehaviour
 
         m_motor = GetComponent<RobotMotor>();
         m_controller = GetComponent<RobotController>();
+        m_animator = GetComponent<Animator>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (isTeleop)
         {
-            m_motor.Steer(onFoot.Movement.ReadValue<Vector2>().x);
-            m_motor.Accelerate(onFoot.Movement.ReadValue<Vector2>().y);
-
             if (isFeeding && !isShooting)
             {
                 m_controller.Feed();
@@ -40,6 +40,31 @@ public class RobotInputManager : MonoBehaviour
             {
                 m_controller.Shoot();
             }
+        }
+
+        if(m_animator != null)
+        {
+            if (m_noteInsert.isLoaded)
+            {
+                m_animator.enabled = true;
+            }
+            else
+            {
+                m_animator.Play("Kitbot_Shoot");
+                m_animator.enabled = false;
+            }
+
+            m_animator.SetBool("isFeeding", isFeeding);
+            m_animator.SetBool("isShooting", isShooting);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isTeleop)
+        {
+            m_motor.Steer(onFoot.Movement.ReadValue<Vector2>().x);
+            m_motor.Accelerate(onFoot.Movement.ReadValue<Vector2>().y);
         }
     }
 
