@@ -11662,6 +11662,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1540661823}
+    - target: {fileID: 7939266996891666971, guid: 2ca5ef3d8b6ce224695aad65010f31c2, type: 3}
+      propertyPath: shootingSpeed
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8126000719931966884, guid: 2ca5ef3d8b6ce224695aad65010f31c2, type: 3}
       propertyPath: m_Mesh
       value: 

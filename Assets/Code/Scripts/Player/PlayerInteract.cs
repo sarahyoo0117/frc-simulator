@@ -59,7 +59,7 @@ public class PlayerInteract : MonoBehaviour
                  }
                  else if (!hand.hasItem && insertable.loadedNote != null)
                  {
-                       playerUI.UpdateText("[E] to unload Note");
+                      playerUI.UpdateText("[E] to unload Note");
 
                       if (inputManager.onFoot.Interact.triggered)
                       {

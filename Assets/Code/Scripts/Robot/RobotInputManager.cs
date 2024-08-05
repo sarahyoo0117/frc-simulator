@@ -11,10 +11,11 @@ public class RobotInputManager : MonoBehaviour
     public bool isShooting;
     [SerializeField]
     private RobotNoteInsert m_noteInsert;
+    [SerializeField]
+    private RobotController m_controller;
 
     private RobotMotor m_motor;
     private RobotInput m_input;
-    private RobotController m_controller;
     private Animator m_animator;
 
     private void Awake()
@@ -23,7 +24,6 @@ public class RobotInputManager : MonoBehaviour
         onFoot = m_input.OnFoot;
 
         m_motor = GetComponent<RobotMotor>();
-        m_controller = GetComponent<RobotController>();
         m_animator = GetComponent<Animator>();
     }
 

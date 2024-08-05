@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 4624365755690585766}
   - component: {fileID: 4735887889107448952}
   - component: {fileID: 6248326264521996783}
+  - component: {fileID: 7939266996891666971}
   m_Layer: 6
   m_Name: Intake Collider
   m_TagString: Untagged
@@ -291,6 +292,21 @@ MonoBehaviour:
   loadedNote: {fileID: 0}
   notePosition: {fileID: 7887819596225030817}
   isLoaded: 0
+--- !u!114 &7939266996891666971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388702136626763990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fe31a52c7b99248a2a844a07f72f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Motor1: {fileID: 125227994763715825}
+  Motor2: {fileID: 1596287245454685320}
+  rotateSpeed: 300
 --- !u!1 &441739147763065187
 GameObject:
   m_ObjectHideFlags: 0
@@ -4396,7 +4412,6 @@ GameObject:
   - component: {fileID: 1997444904330653152}
   - component: {fileID: 4983601312210607199}
   - component: {fileID: 7338200488763527872}
-  - component: {fileID: 38539464761624090}
   - component: {fileID: 3695081508400220855}
   m_Layer: 0
   m_Name: Kitbot
@@ -4472,6 +4487,7 @@ MonoBehaviour:
   isFeeding: 0
   isShooting: 0
   m_noteInsert: {fileID: 6248326264521996783}
+  m_controller: {fileID: 7939266996891666971}
 --- !u!114 &7338200488763527872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4497,21 +4513,6 @@ MonoBehaviour:
   motorForce: 300
   maxSteerAngle: 80
   canSwerve: 0
---- !u!114 &38539464761624090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6901121779814200250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51fe31a52c7b99248a2a844a07f72f2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Motor1: {fileID: 125227994763715825}
-  Motor2: {fileID: 1596287245454685320}
-  rotateSpeed: 300
 --- !u!95 &3695081508400220855
 Animator:
   serializedVersion: 5
