@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using UnityEngine.InputSystem;
 
-public class PlayerInputManager : MonoBehaviour
+public class PlayerInputManager : MonoBehaviourPunCallbacks
 {
     private PlayerInput playerInput;
     public PlayerInput.OnFootActions onFoot;
@@ -26,20 +27,26 @@ public class PlayerInputManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
+        if(photonView.IsMine)
+        {
+            motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
+        }
     }
 
     private void LateUpdate()
     {
-        look.ProcessLook(onFoot.Look.ReadValue<Vector2>());
+        if (photonView.IsMine)
+        {
+            look.ProcessLook(onFoot.Look.ReadValue<Vector2>());
+        }
     }
 
-    private void OnEnable()
+    public override void OnEnable()
     {
         onFoot.Enable();
     }
 
-    private void OnDisable()
+    public override void OnDisable()
     {
         onFoot.Disable();
     }

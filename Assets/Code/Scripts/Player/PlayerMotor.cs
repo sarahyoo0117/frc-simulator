@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerMotor : MonoBehaviour
+public class PlayerMotor : MonoBehaviourPunCallbacks
 {
+    public CharacterController controller;
     public float speed = 5f;
     public float mass = 5f;
     public float gravity = 9.8f;
     public float jumpHeight = 10f;
 
-    private CharacterController controller;
     private Vector3 playerVelocity;
     private bool isGrounded;
     private bool isCrouching;
@@ -17,9 +18,17 @@ public class PlayerMotor : MonoBehaviour
     private bool lerpCrouch;
     private bool isSprinting;
 
-    void Start()
+    private void Awake()
     {
-        controller = GetComponent<CharacterController>();  
+        controller = GetComponent<CharacterController>();
+    }
+
+    private void Start()
+    {
+        if (!photonView.IsMine)
+        {
+            controller.enabled = false;
+        }
     }
 
     void Update()

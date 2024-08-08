@@ -1,26 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class Trigger : Interactable
 {
     [Header("Cameras")]
-    public GameObject Cam1; //default player main cam
-    public GameObject Cam2; //drive station cam
-    public GameObject Cam3; //robot first person cam
+    public Camera Cam1 = null; //default player main cam
+    public Camera Cam2; //drive station cam
+    public Camera Cam3; //robot first person cam //TODO: how to assign a robot?
     public int CamManager;
 
     [Header("Play Settings")]
-    public CharacterController playerController;
+    public CharacterController playerController = null;
     public GameObject robot;
 
+    private RobotInputManager robotInputManager;
     private Material triggerMaterial;
     private bool isPlaying;
-    private RobotInputManager robotInputManager;
 
     void Start()
     {
-       triggerMaterial = gameObject.GetComponent<Renderer>().material;
+       triggerMaterial = GetComponent<Renderer>().material;
        robotInputManager = robot.GetComponent<RobotInputManager>();
        robotInputManager.isTeleop = false;
        playerController.enabled = true;
@@ -39,6 +41,9 @@ public class Trigger : Interactable
                 triggerMaterial.color = Color.green;
                 playerController.enabled = true;
                 ActivateCam1();
+
+                Cam1 = null;
+                playerController = null;
             }
             else if (Input.GetKeyDown(KeyCode.F5))
             {
@@ -49,11 +54,14 @@ public class Trigger : Interactable
 
     protected override void Interact()
     {
+        //Cam1 = player.GetComponent<PlayerLook>().cam;
+        //playerController = player.GetComponent<CharacterController>();
         isPlaying = true;
         robotInputManager.isTeleop = true;
         triggerMaterial.color = Color.red;
         playerController.enabled = false;
         ActivateCam2();
+
     }
 
     public void ManageCamera()
@@ -70,25 +78,25 @@ public class Trigger : Interactable
 
     void ActivateCam1()
     {
-        Cam1.SetActive(true);
-        Cam2.SetActive(false);
-        Cam3.SetActive(false);
+        Cam1.enabled = true;
+        Cam2.enabled = false;      
+        Cam3.enabled = false;
         CamManager = 0;
     }
 
     void ActivateCam2()
     {
-        Cam1.SetActive(false);
-        Cam2.SetActive(true);
-        Cam3.SetActive(false);
+        Cam1.enabled = false;
+        Cam2.enabled = true;
+        Cam3.enabled = false;
         CamManager = 1;
     }
 
     void ActivateCam3()
     {
-        Cam1.SetActive(false);
-        Cam2.SetActive(false);
-        Cam3.SetActive(true);
+        Cam1.enabled = false;
+        Cam2.enabled = false;
+        Cam3.enabled = true;
         CamManager = 2;
     }
 }
