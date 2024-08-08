@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3825226527702461636}
   - component: {fileID: 7451279159922563912}
   - component: {fileID: 4828158810637236595}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_1_Tubo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4019381266607378431}
   - component: {fileID: 382484182473635632}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: left_back_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 8326708994129549997}
   - component: {fileID: 8782196033622887469}
   - component: {fileID: 3687551166299772357}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_Cilindro_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,8 +247,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4789832151378705677}
   - component: {fileID: 7783267323599351513}
-  - component: {fileID: 3080852027340256920}
-  - component: {fileID: 8545930491718597421}
   m_Layer: 6
   m_Name: Intake Collider
   m_TagString: Untagged
@@ -292,39 +290,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4443023, y: 0.36736512, z: 2.3636105}
   m_Center: {x: 0.0127978325, y: -0.3198674, z: -0.66456825}
---- !u!114 &3080852027340256920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 528305920699693101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5beb43ac904aa8c4fad6443b6ff4b986, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useEvents: 0
-  promptMessage: 
-  loadedNote: {fileID: 0}
-  notePosition: {fileID: 6408311414471173348}
-  isLoaded: 0
---- !u!114 &8545930491718597421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 528305920699693101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51fe31a52c7b99248a2a844a07f72f2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Motor1: {fileID: 928949471995963843}
-  Motor2: {fileID: 675216496164093475}
-  rotateSpeed: 300
-  note: {fileID: 0}
 --- !u!1 &554390034478315016
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +301,7 @@ GameObject:
   - component: {fileID: 4023830558333365665}
   - component: {fileID: 5935330484608553748}
   - component: {fileID: 926391764371046201}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_1_Tubo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -419,7 +384,7 @@ GameObject:
   - component: {fileID: 5705020302479264442}
   - component: {fileID: 4371645859334469924}
   - component: {fileID: 7790335729295424753}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_Cilindro_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,7 +466,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5267369765760892460}
   - component: {fileID: 5867839370631670989}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: right_back_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,7 +512,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3419814634247207182}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Motor 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,7 +547,7 @@ GameObject:
   - component: {fileID: 2410582204448778787}
   - component: {fileID: 5673276629512455658}
   - component: {fileID: 5131235413628266651}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_Cilindro_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -667,7 +632,7 @@ GameObject:
   - component: {fileID: 5433916257506970873}
   - component: {fileID: 8375064090620893229}
   - component: {fileID: 6795268604413583486}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Intake_bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -997,7 +962,7 @@ GameObject:
   - component: {fileID: 5409740954166201370}
   - component: {fileID: 3262754656939120754}
   - component: {fileID: 958184730223640320}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1327,7 +1292,7 @@ GameObject:
   - component: {fileID: 8963748996103316641}
   - component: {fileID: 6351613251747825101}
   - component: {fileID: 8409002485259354286}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1655,7 +1620,7 @@ GameObject:
   - component: {fileID: 78143235640214126}
   - component: {fileID: 794667382229772612}
   - component: {fileID: 3867342852551100220}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_Cilindro_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1740,7 +1705,7 @@ GameObject:
   - component: {fileID: 2716292610809002824}
   - component: {fileID: 6296693120937694400}
   - component: {fileID: 687037593765404879}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Intake_leftside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2068,7 +2033,7 @@ GameObject:
   - component: {fileID: 3484759916645862920}
   - component: {fileID: 1155459284599183073}
   - component: {fileID: 2354726454054544168}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_1_Tubo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2149,7 +2114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6408311414471173348}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NotePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2181,7 +2146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8947886861411689135}
   - component: {fileID: 1201036569513616318}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: left_back_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2228,7 +2193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4251445809192760041}
   - component: {fileID: 6909250104207624102}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: left_front_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2300,7 +2265,7 @@ GameObject:
   - component: {fileID: 1761242632218361163}
   - component: {fileID: 7942528811136018390}
   - component: {fileID: 5185633612597965723}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_Cilindro_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2383,7 +2348,7 @@ GameObject:
   - component: {fileID: 2466481186205493754}
   - component: {fileID: 2686057328789971805}
   - component: {fileID: 4003135983307716677}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Robot Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2473,7 +2438,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5216859591185836721}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Intake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2508,7 +2473,7 @@ GameObject:
   - component: {fileID: 4245139246876740721}
   - component: {fileID: 7911732417117413753}
   - component: {fileID: 7798524964053745424}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_Cilindro_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2593,7 +2558,7 @@ GameObject:
   - component: {fileID: 5443124887756217562}
   - component: {fileID: 4276420213068296068}
   - component: {fileID: 4312545571744898100}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Intake_back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2923,7 +2888,7 @@ GameObject:
   - component: {fileID: 6291522452265729815}
   - component: {fileID: 1036489958537143524}
   - component: {fileID: 533806313578559550}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Intake_front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3249,7 +3214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3634200319286971599}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WheelColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3286,7 +3251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 434303756660190116}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3323,7 +3288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6181614859642821125}
   - component: {fileID: 3272895220830118792}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: right_middle_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3397,7 +3362,7 @@ GameObject:
   - component: {fileID: 7249743462232492625}
   - component: {fileID: 8451999629302475246}
   - component: {fileID: 6651349908534827226}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3727,7 +3692,7 @@ GameObject:
   - component: {fileID: 4339692638046347971}
   - component: {fileID: 5759994582027611807}
   - component: {fileID: 638786344223256681}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Intake_rightside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4054,7 +4019,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7081931196757904504}
   - component: {fileID: 500887080409427928}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bumper Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4108,7 +4073,7 @@ GameObject:
   - component: {fileID: 4498352968501005716}
   - component: {fileID: 7832267456665577022}
   - component: {fileID: 6971352698626352889}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_1_Tubo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4191,7 +4156,7 @@ GameObject:
   - component: {fileID: 5784853347592079842}
   - component: {fileID: 5533348226119159239}
   - component: {fileID: 7178118888823911185}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_1_Tubo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4273,7 +4238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2681163080570210794}
   - component: {fileID: 1155847895813711398}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: left_middle_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4345,7 +4310,7 @@ GameObject:
   - component: {fileID: 9159764215139464993}
   - component: {fileID: 2393789782411243376}
   - component: {fileID: 4624613708558375793}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_1_Tubo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4426,7 +4391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8639630815680740847}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4467,7 +4432,7 @@ GameObject:
   - component: {fileID: 452527900400480182}
   - component: {fileID: 3631321979026743290}
   - component: {fileID: 798456811316236726}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4797,7 +4762,7 @@ GameObject:
   - component: {fileID: 5203173090080139341}
   - component: {fileID: 553547846074963788}
   - component: {fileID: 2936210355522014680}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bar (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5124,12 +5089,14 @@ GameObject:
   m_Component:
   - component: {fileID: 8641693668057175702}
   - component: {fileID: 7486941907836240394}
+  - component: {fileID: 3852827064636525627}
   - component: {fileID: 8815077071157425886}
   - component: {fileID: 476881198505556711}
-  - component: {fileID: 3852827064636525627}
+  - component: {fileID: 781953701966348331}
+  - component: {fileID: 4521904938503121856}
   - component: {fileID: 888783386141716280}
   - component: {fileID: 8971614529985353576}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Kitbot
   m_TagString: Robot
   m_Icon: {fileID: 0}
@@ -5187,6 +5154,27 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &3852827064636525627
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6609104647679587477}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 037d704e7e73d3e48a27fc27d48e0ea9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &8815077071157425886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5202,8 +5190,6 @@ MonoBehaviour:
   isTeleop: 1
   isFeeding: 0
   isShooting: 0
-  m_noteInsert: {fileID: 3080852027340256920}
-  m_controller: {fileID: 8545930491718597421}
 --- !u!114 &476881198505556711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5229,27 +5215,39 @@ MonoBehaviour:
   motorForce: 300
   maxSteerAngle: 80
   canSwerve: 0
---- !u!95 &3852827064636525627
-Animator:
-  serializedVersion: 5
+--- !u!114 &781953701966348331
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6609104647679587477}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 037d704e7e73d3e48a27fc27d48e0ea9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5beb43ac904aa8c4fad6443b6ff4b986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useEvents: 0
+  promptMessage: 
+  loadedNote: {fileID: 0}
+  notePosition: {fileID: 6408311414471173348}
+  isLoaded: 0
+--- !u!114 &4521904938503121856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6609104647679587477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51fe31a52c7b99248a2a844a07f72f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Motor1: {fileID: 928949471995963843}
+  Motor2: {fileID: 675216496164093475}
+  rotateSpeed: 300
+  note: {fileID: 0}
 --- !u!114 &888783386141716280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5299,7 +5297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2187107266874547464}
   - component: {fileID: 4928529434502777673}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: right_front_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5371,7 +5369,7 @@ GameObject:
   - component: {fileID: 3234777449376176481}
   - component: {fileID: 2670604448065670046}
   - component: {fileID: 1983552065208874456}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_Cilindro_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5454,7 +5452,7 @@ GameObject:
   - component: {fileID: 1051488220876603487}
   - component: {fileID: 5489871423306491869}
   - component: {fileID: 2590694758967167601}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WHEEL_HyperNURBS_1_Tubo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5536,7 +5534,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1716524277927716009}
   - component: {fileID: 4492627212227586011}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: right_front_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5586,7 +5584,7 @@ GameObject:
   - component: {fileID: 2706531562555500814}
   - component: {fileID: 2449336208947031389}
   - component: {fileID: 6078878292685150341}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5913,7 +5911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5077702214219647740}
   - component: {fileID: 5717569915693230937}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: right_middle_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5963,7 +5961,7 @@ GameObject:
   - component: {fileID: 4077063734840059233}
   - component: {fileID: 4395627653711756719}
   - component: {fileID: 9063670387826081031}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6290,7 +6288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 322344328039105965}
   - component: {fileID: 4331886827381404248}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Motors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6344,7 +6342,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 692153479750369688}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bumper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6380,7 +6378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7656678283039277796}
   - component: {fileID: 4902306581203445559}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: left_middle_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6430,7 +6428,7 @@ GameObject:
   - component: {fileID: 3232083365969012690}
   - component: {fileID: 2165113002367596122}
   - component: {fileID: 1568834060736994713}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6756,7 +6754,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3334182080775602896}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Holders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6789,7 +6787,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8636909368523291686}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightSide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6823,7 +6821,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6080243297593560951}
   - component: {fileID: 3604626398383135355}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: right_back_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6894,7 +6892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 732915522819675687}
   - component: {fileID: 785126743382022611}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: left_front_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6940,7 +6938,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6827361063248353251}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftSide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6978,11 +6976,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 32391307379295062, guid: c2399cd0e5be81e4987a96e049ec880f, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 909005482061258136, guid: c2399cd0e5be81e4987a96e049ec880f, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5351866578852251110, guid: c2399cd0e5be81e4987a96e049ec880f, type: 3}
       propertyPath: m_LocalScale.x
@@ -7038,7 +7036,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6138460398456010038, guid: c2399cd0e5be81e4987a96e049ec880f, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

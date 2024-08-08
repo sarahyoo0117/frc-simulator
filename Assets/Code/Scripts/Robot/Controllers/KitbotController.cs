@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Photon.Pun;
 
 public class KitbotController : RobotController
 {
@@ -15,26 +16,22 @@ public class KitbotController : RobotController
     private GameObject note;
 
     private RobotNoteInsert m_insert;
-    private Collider m_collider;
+    private PhotonView robotPV;
 
     private float z = 0f;
     private bool hasFeeded = false;
     private bool isShootingNote = false;
     private bool hasBeenShooted = false;
 
-    private void Start()
+    private void Awake()
     {
+        robotPV = GetComponent<PhotonView>();
         m_insert = GetComponent<RobotNoteInsert>();
-        m_collider = GetComponent<Collider>();
     }
 
     private void Update()
     {
-        if (m_insert.loadedNote != null && note == null)
-        {
-            note = m_insert.loadedNote;
-            Physics.IgnoreCollision(m_collider, note.GetComponent<Collider>()); //TODO
-        }
+        IgnoreCollsionWithNote();
 
         if (isShootingNote)
         {
@@ -43,12 +40,7 @@ public class KitbotController : RobotController
 
         if (hasBeenShooted)
         {
-            m_insert.isLoaded = false;
-            m_insert.loadedNote = null;
-            note.transform.parent = null;
-            note = null;
-            hasBeenShooted = false;
-            hasFeeded = false;
+            ResetAll();
         }
     }
 
@@ -72,6 +64,15 @@ public class KitbotController : RobotController
 
     private void ShootNote()
     {
+        robotPV.RPC("RPC_ShootNote", RpcTarget.AllBuffered);
+
+        isShootingNote = false;
+        hasBeenShooted = true;
+    }
+
+    [PunRPC]
+    private void RPC_ShootNote()
+    {
         Rigidbody noteRb = note.GetComponent<Rigidbody>();
         Collider noteCollider = noteRb.GetComponent<Collider>();
 
@@ -81,13 +82,6 @@ public class KitbotController : RobotController
             noteCollider.enabled = true;
             noteRb.AddForce(note.transform.forward * rotateSpeed, ForceMode.Impulse);
         }
-        else
-        {
-            print("Does not have rb");
-        }
-
-        isShootingNote = false;
-        hasBeenShooted = true;
     }
 
     private void RotateMotors()
@@ -98,4 +92,37 @@ public class KitbotController : RobotController
             Motor2.transform.localRotation = Quaternion.Euler(90, 0, z);
         }
     }
+
+    private void IgnoreCollsionWithNote()
+    {
+        if (m_insert.loadedNote != null && note == null)
+        {
+            note = m_insert.loadedNote;
+
+            Collider noteCol = note.GetComponent<Collider>();
+            Collider[] _colliders = GetComponentsInChildren<Collider>();
+
+            foreach(Collider collider in _colliders)
+            {
+                Physics.IgnoreCollision(collider, noteCol);
+            }
+        }
+    }
+
+    public void ResetAll()
+    {
+        robotPV.RPC("RPC_RestAll", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    private void RPC_ResetAll()
+    {
+        m_insert.isLoaded = false;
+        m_insert.loadedNote = null;
+        note.transform.parent = null;
+        note = null;
+        hasBeenShooted = false;
+        hasFeeded = false;
+    }
+
 }

@@ -45,6 +45,12 @@ MonoBehaviour:
   - RPC_OnPickUp
   - RPC_DropItem
   - RPC_PickUpItem
+  - RPC_InsertNote
+  - RPC_UnloadNote
+  - RPC_ResetAll
+  - RPC_ShootNote
+  - RPC_Feed
+  - RPC_Shoot
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

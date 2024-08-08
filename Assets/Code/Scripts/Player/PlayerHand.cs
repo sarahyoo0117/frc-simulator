@@ -37,11 +37,6 @@ public class PlayerHand : MonoBehaviourPunCallbacks
         if (objectPV != null && hasItem == false)
         {
             photonView.RPC("RPC_PickUpItem", RpcTarget.AllBuffered, objectPV.ViewID);
-            Item = objectToPickUp;
-            hasItem = true;
-
-            if (Item.GetComponent<Note>() != null)
-                hasNote = true;
         }
     }
 
@@ -49,12 +44,12 @@ public class PlayerHand : MonoBehaviourPunCallbacks
     {
         if (hasItem)
         {
-            int itemViewId = Item.GetComponent<PhotonView>().ViewID;
-            photonView.RPC("RPC_DropItem", RpcTarget.AllBuffered, itemViewId);
+            PhotonView itemPV = Item.GetComponent<PhotonView>();
 
-            Item = null;
-            hasItem = false;
-            if (hasNote) hasNote = false;
+            if (itemPV != null)
+            {
+                photonView.RPC("RPC_DropItem", RpcTarget.AllBuffered, itemPV.ViewID);
+            }
         }
     }
 
@@ -78,6 +73,12 @@ public class PlayerHand : MonoBehaviourPunCallbacks
                 rb.isKinematic = true;
                 col.enabled = false;
             }
+
+            Item = objectPV.gameObject;
+            hasItem = true;
+
+            if (Item.GetComponent<Note>() != null)
+                hasNote = true;
         }
     }
 
@@ -91,5 +92,9 @@ public class PlayerHand : MonoBehaviourPunCallbacks
 
         objectPV.GetComponent<Rigidbody>().isKinematic = false;
         objectPV.GetComponent<Collider>().enabled = true;
+
+        Item = null;
+        hasItem = false;
+        if (hasNote) hasNote = false;
     }
 }

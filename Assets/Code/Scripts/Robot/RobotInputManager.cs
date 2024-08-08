@@ -9,21 +9,21 @@ public class RobotInputManager : MonoBehaviour
     public bool isTeleop;
     public bool isFeeding;
     public bool isShooting;
-    [SerializeField]
-    private RobotNoteInsert m_noteInsert;
-    [SerializeField]
-    private RobotController m_controller;
 
+    private RobotController m_controller;
     private RobotMotor m_motor;
     private RobotInput m_input;
+    private RobotNoteInsert m_noteInsert;
     private Animator m_animator;
 
-    private void Awake()
+    private void Start()
     {
         m_input = new RobotInput();
         onFoot = m_input.OnFoot;
 
+        m_controller = GetComponent<RobotController>();
         m_motor = GetComponent<RobotMotor>();
+        m_noteInsert = GetComponent<RobotNoteInsert>();
         m_animator = GetComponent<Animator>();
     }
 
