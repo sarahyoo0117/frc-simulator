@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerHand : MonoBehaviour
+public class PlayerHand : MonoBehaviourPunCallbacks
 {
     public GameObject hand;
     public GameObject Item;
@@ -10,10 +11,12 @@ public class PlayerHand : MonoBehaviour
     public bool hasNote;
 
     private PlayerInputManager m_inputManager;
+    private GameObject worldObjectsHolder;
 
     private void Start()
     {
         m_inputManager = GetComponent<PlayerInputManager>();
+        worldObjectsHolder = GameObject.FindGameObjectWithTag("WorldObjects");
     }
 
     private void Update()
@@ -27,39 +30,66 @@ public class PlayerHand : MonoBehaviour
         }
     }
 
-    public void PickupItem(GameObject pickedItem)
+    public void PickupItem(GameObject objectToPickUp)
     {
-        if (pickedItem != null && hasItem == false)
+        PhotonView objectPV = objectToPickUp.GetComponent<PhotonView>();
+
+        if (objectPV != null && hasItem == false)
         {
-            Item = pickedItem;
+            photonView.RPC("RPC_PickUpItem", RpcTarget.AllBuffered, objectPV.ViewID);
+            Item = objectToPickUp;
+            hasItem = true;
 
-            Pickable pickable = Item.GetComponent<Pickable>();
-
-            if (pickable != null)
-            {
-                pickable.OnPickUp(hand.transform);
-                hasItem = true;
-
-                if (Item.GetComponent<Note>() != null)
-                    hasNote = true;
-            }
+            if (Item.GetComponent<Note>() != null)
+                hasNote = true;
         }
     }
 
     public void DropItem()
     {
-        if (Item != null && hasItem)
+        if (hasItem)
         {
-            Pickable pickable = Item.GetComponent<Pickable>();
+            int itemViewId = Item.GetComponent<PhotonView>().ViewID;
+            photonView.RPC("RPC_DropItem", RpcTarget.AllBuffered, itemViewId);
 
-            if (pickable != null)
+            Item = null;
+            hasItem = false;
+            if (hasNote) hasNote = false;
+        }
+    }
+
+    [PunRPC]
+    private void RPC_PickUpItem(int objectViewID)
+    {
+        PhotonView objectPV = PhotonView.Find(objectViewID);
+
+        if (objectPV != null)
+        {
+            Transform objectTrans= objectPV.transform;
+
+            objectTrans.parent = hand.transform;
+            objectTrans.position = Vector3.zero;
+            objectTrans.rotation = Quaternion.identity;
+
+            Rigidbody rb = objectPV.GetComponent<Rigidbody>();
+            Collider col = objectPV.GetComponent<Collider>();
+            if (rb != null && col != null)
             {
-                pickable.OnDrop();
-                Item = null;
-                hasItem = false;
-
-                if (hasNote) hasNote = false;
+                rb.isKinematic = true;
+                col.enabled = false;
             }
         }
+    }
+
+    [PunRPC]
+    private void RPC_DropItem(int objectViewID)
+    {
+        PhotonView objectPV = PhotonView.Find(objectViewID);
+
+        Transform trans = objectPV.transform;
+        trans.parent = worldObjectsHolder.transform;
+
+        objectPV.GetComponent<Rigidbody>().isKinematic = false;
+        objectPV.GetComponent<Collider>().enabled = true;
     }
 }

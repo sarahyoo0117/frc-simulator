@@ -44,7 +44,16 @@ public class PlayerInteract : MonoBehaviour
 
                 if (inputManager.onFoot.Interact.triggered)
                 {
-                    interactable.BaseInteract();
+                    Pickable pickable = hitInfo.collider.GetComponent<Pickable>();
+
+                    if (pickable != null)
+                    {
+                        hand.PickupItem(pickable.gameObject);
+                    }
+                    else
+                    {
+                        interactable.BaseInteract();
+                    }
                 }
             } 
             else if (insertable != null)

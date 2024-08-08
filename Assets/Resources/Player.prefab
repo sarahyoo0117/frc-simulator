@@ -584,6 +584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2878c827cc5d644b6ae867561594f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 8743397705159101925}
   speed: 5
   mass: 5
   gravity: 9.8
@@ -600,6 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0fec076f289d02409b5b7b9556e18ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 2237695960829491309}
   audioListener: {fileID: 0}
   hand: {fileID: 8237751586496208881}
   xSensitivity: 0.2
