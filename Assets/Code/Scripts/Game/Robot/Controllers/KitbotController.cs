@@ -65,23 +65,6 @@ public class KitbotController : RobotController
     private void ShootNote()
     {
         robotPV.RPC("RPC_ShootNote", RpcTarget.AllBuffered);
-
-        isShootingNote = false;
-        hasBeenShooted = true;
-    }
-
-    [PunRPC]
-    private void RPC_ShootNote()
-    {
-        Rigidbody noteRb = note.GetComponent<Rigidbody>();
-        Collider noteCollider = noteRb.GetComponent<Collider>();
-
-        if (noteRb != null && noteCollider != null)
-        {
-            noteRb.isKinematic = false;
-            noteCollider.enabled = true;
-            noteRb.AddForce(note.transform.forward * rotateSpeed, ForceMode.Impulse);
-        }
     }
 
     private void RotateMotors()
@@ -112,6 +95,23 @@ public class KitbotController : RobotController
     public void ResetAll()
     {
         robotPV.RPC("RPC_RestAll", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    private void RPC_ShootNote()
+    {
+        Rigidbody noteRb = note.GetComponent<Rigidbody>();
+        Collider noteCollider = noteRb.GetComponent<Collider>();
+
+        if (noteRb != null && noteCollider != null)
+        {
+            noteRb.isKinematic = false;
+            noteCollider.enabled = true;
+            noteRb.AddForce(note.transform.forward * rotateSpeed, ForceMode.Impulse);
+
+            isShootingNote = false;
+            hasBeenShooted = true;
+        }
     }
 
     [PunRPC]

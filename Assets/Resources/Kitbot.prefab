@@ -5111,7 +5111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6609104647679587477}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.021262191, z: -0, w: 0.999774}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 286.312, y: 1.03, z: 187.697}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5126,7 +5126,7 @@ Transform:
   - {fileID: 7081931196757904504}
   - {fileID: 3334182080775602896}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -2.437, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &7486941907836240394
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5187,7 +5187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5c591c959c76a048a364b703a281847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTeleop: 1
+  isTeleop: 0
   isFeeding: 0
   isShooting: 0
 --- !u!114 &476881198505556711
@@ -5264,7 +5264,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 2
   observableSearch: 2
   ObservedComponents:
   - {fileID: 8971614529985353576}

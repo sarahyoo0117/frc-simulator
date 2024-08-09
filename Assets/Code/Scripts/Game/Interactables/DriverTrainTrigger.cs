@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 
-public class Trigger : Interactable
+public class DriverTrainTrigger : Interactable
 {
     [Header("Cameras")]
     public Camera Cam1 = null; //default player main cam
@@ -12,11 +11,12 @@ public class Trigger : Interactable
     public Camera Cam3; //robot first person cam //TODO: how to assign a robot?
     public int CamManager;
 
-    [Header("Play Settings")]
+    [Header("Play Settings")] //TODO
     public CharacterController playerController = null;
-    public GameObject robot;
+    public GameObject robot; 
 
     private RobotInputManager robotInputManager;
+    private PhotonView m_PV;
     private Material triggerMaterial;
     private bool isPlaying;
 
@@ -24,8 +24,9 @@ public class Trigger : Interactable
     {
        triggerMaterial = GetComponent<Renderer>().material;
        robotInputManager = robot.GetComponent<RobotInputManager>();
+       m_PV = GetComponent<PhotonView>();
+
        robotInputManager.isTeleop = false;
-       playerController.enabled = true;
        ActivateCam1();
     }
 
@@ -36,14 +37,7 @@ public class Trigger : Interactable
             //TODO: add GamePad Buttons
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                isPlaying = false;
-                robotInputManager.isTeleop = false;
-                triggerMaterial.color = Color.green;
-                playerController.enabled = true;
-                ActivateCam1();
-
-                Cam1 = null;
-                playerController = null;
+                ExitStation();
             }
             else if (Input.GetKeyDown(KeyCode.F5))
             {
@@ -52,16 +46,30 @@ public class Trigger : Interactable
         }
     }
 
-    protected override void Interact()
+    public void ActivateStation(PhotonView playerPV)
     {
-        //Cam1 = player.GetComponent<PlayerLook>().cam;
-        //playerController = player.GetComponent<CharacterController>();
+        m_PV.RPC("RPC_ActivateStation", RpcTarget.AllBuffered, playerPV.ViewID);
+    }
+
+    [PunRPC]
+    private void RPC_ActivateStation(int playerViewID)
+    {
+        PhotonView playerPV = PhotonView.Find(playerViewID);
+
+        Cam1 = playerPV.GetComponent<PlayerLook>().cam;
+        playerController = playerPV.GetComponent<CharacterController>();
+
         isPlaying = true;
+        Cam1.enabled = false;
+        playerController.enabled = false;
         robotInputManager.isTeleop = true;
         triggerMaterial.color = Color.red;
-        playerController.enabled = false;
         ActivateCam2();
+    }
 
+    public void ExitStation()
+    {
+        m_PV.RPC("RPC_ExitStation", RpcTarget.AllBuffered);
     }
 
     public void ManageCamera()
@@ -76,15 +84,45 @@ public class Trigger : Interactable
         }
     }
 
-    void ActivateCam1()
+    public void ActivateCam1()
+    {
+        m_PV.RPC("RPC_ActivateCam1", RpcTarget.AllBuffered);
+    }
+
+    public void ActivateCam2()
+    {
+        m_PV.RPC("RPC_ActivateCam2", RpcTarget.AllBuffered);
+    }
+
+    public void ActivateCam3()
+    {
+        m_PV.RPC("RPC_ActivateCam3", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    private void RPC_ExitStation()
+    {
+        isPlaying = false;
+        robotInputManager.isTeleop = false;
+        triggerMaterial.color = Color.green;
+        playerController.enabled = true;
+        ActivateCam1();
+
+        Cam1 = null;
+        playerController = null;
+    }
+
+    [PunRPC]
+    private void RPC_ActivateCam1()
     {
         Cam1.enabled = true;
-        Cam2.enabled = false;      
+        Cam2.enabled = false;
         Cam3.enabled = false;
         CamManager = 0;
     }
 
-    void ActivateCam2()
+    [PunRPC]
+    private void RPC_ActivateCam2()
     {
         Cam1.enabled = false;
         Cam2.enabled = true;
@@ -92,7 +130,8 @@ public class Trigger : Interactable
         CamManager = 1;
     }
 
-    void ActivateCam3()
+    [PunRPC]
+    private void RPC_ActivateCam3()
     {
         Cam1.enabled = false;
         Cam2.enabled = false;

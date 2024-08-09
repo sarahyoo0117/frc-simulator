@@ -51,6 +51,12 @@ MonoBehaviour:
   - RPC_ShootNote
   - RPC_Feed
   - RPC_Shoot
+  - RPC_SetDriver
+  - RPC_ActivateCam1
+  - RPC_ActivateCam2
+  - RPC_ActivateCam3
+  - RPC_ExitStation
+  - RPC_ActivateStation
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

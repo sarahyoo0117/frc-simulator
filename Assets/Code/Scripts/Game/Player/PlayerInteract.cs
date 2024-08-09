@@ -1,4 +1,3 @@
-using Photon.Pun.Demo.Cockpit;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,59 +25,70 @@ public class PlayerInteract : MonoBehaviourPunCallbacks
 
     void Update()
     {
+        playerUI.UpdateText(string.Empty);
+
         if (photonView.IsMine)
         {
-            playerUI.UpdateText(string.Empty);
-
             Ray ray = new Ray(cam.transform.position, cam.transform.forward);
 
-            Debug.DrawRay(ray.origin, ray.direction * distance);
+            #if UNITY_EDITOR
+            Debug.DrawRay(ray.origin, ray.direction * distance, Color.green);
+            #endif
 
             RaycastHit hitInfo;
 
-            if (Physics.Raycast(ray, out hitInfo, distance, mask)) 
+            if (Physics.Raycast(ray, out hitInfo, distance, mask))
             {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                RobotNoteInsert insertable = hitInfo.rigidbody.GetComponent<RobotNoteInsert>();
 
-                if (interactable != null && insertable == null)
+                if (interactable != null)
                 {
                     playerUI.UpdateText(interactable.promptMessage);
 
                     if (inputManager.onFoot.Interact.triggered)
                     {
                         Pickable pickable = hitInfo.collider.GetComponent<Pickable>();
-
+                        DriverTrainTrigger driverTrig = hitInfo.collider.GetComponent<DriverTrainTrigger>();
                         if (pickable != null)
                         {
                             hand.PickupItem(pickable.gameObject);
+                        }
+                        else if (driverTrig != null)
+                        {
+                            driverTrig.ActivateStation(photonView);
                         }
                         else
                         {
                             interactable.BaseInteract();
                         }
                     }
-                } 
-                else if (insertable != null)
+                    return;
+                }
+
+                if (hitInfo.rigidbody != null)
                 {
-                     if (hand.hasNote && insertable.loadedNote == null)
-                     {
+                    RobotNoteInsert insertable = hitInfo.rigidbody.GetComponent<RobotNoteInsert>();
+
+                    if (insertable == null) return;
+
+                    if (hand.hasNote && insertable.loadedNote == null)
+                    {
                         playerUI.UpdateText("[E] to load Note");
 
                         if (inputManager.onFoot.Interact.triggered)
                         {
                             insertable.InsertNote(hand.Item, hand);
                         }
-                     }
-                     else if (!hand.hasItem && insertable.loadedNote != null)
-                     {
-                          playerUI.UpdateText("[E] to unload Note");
+                    }
+                    else if (!hand.hasItem && insertable.loadedNote != null)
+                    {
+                        playerUI.UpdateText("[E] to unload Note");
 
-                          if (inputManager.onFoot.Interact.triggered)
-                          {
+                        if (inputManager.onFoot.Interact.triggered)
+                        {
                             insertable.UnloadNote(hand);
-                          }
-                     }
+                        }
+                    }
                 }
             }
         }
