@@ -57,6 +57,7 @@ MonoBehaviour:
   - RPC_ActivateCam3
   - RPC_ExitStation
   - RPC_ActivateStation
+  - RPC_JoinTeam
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

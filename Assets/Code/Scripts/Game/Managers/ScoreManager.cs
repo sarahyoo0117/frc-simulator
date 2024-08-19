@@ -4,11 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum AllianceType
-{
-    Red,
-    Blue
-}
 
 public class ScoreManager : MonoBehaviour
 {

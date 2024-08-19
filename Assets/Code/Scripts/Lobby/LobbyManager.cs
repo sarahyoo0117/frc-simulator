@@ -3,10 +3,14 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 
+public enum Team : int
+{
+    Red = 0,
+    Blue = 1
+}
+
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
-    public int RoomSize = 6;
-
     [Header("Current User Info")]
     public TextMeshProUGUI CurrentUsername;
 
@@ -15,17 +19,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject LobbyPanel;
     public GameObject progressLabel;
 
-    [Header("Custom Room Settings")]
+    [Header("Room Settings")]
+    public int RoomSize = 6;
     public TMP_InputField RoomNameInput;
     public TextMeshProUGUI JoinedRoomName;
+    [SerializeField]
+    private PlayerItemList PlayerItemList;
+    public GameObject StartButton;
 
-
-   // bool isConnecting;
-
-    private void Awake()
-    {
-        PhotonNetwork.AutomaticallySyncScene = true;
-    }
+    // bool isConnecting;
 
     private void Start()
     {
@@ -40,10 +42,23 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         LobbyPanel.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (PhotonNetwork.IsMasterClient)
+            StartButton.SetActive(true);
+        else
+            StartButton.SetActive(false);
+    }
+
     public void CreateMyRoom()
     {
         if (RoomNameInput.text.Length >= 1)
-            PhotonNetwork.CreateRoom(RoomNameInput.text, new RoomOptions { MaxPlayers = RoomSize });
+            PhotonNetwork.CreateRoom(
+                RoomNameInput.text,
+                new RoomOptions { 
+                    MaxPlayers = RoomSize,
+                    BroadcastPropsChangeToAll = true
+                });
     }
 
     public void QuickMatch()
@@ -69,6 +84,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         HomePanel.SetActive(false);
         LobbyPanel.SetActive(true);
         JoinedRoomName.text = PhotonNetwork.CurrentRoom.Name;
+        GameSetup.instance.SetInitialPlayerSettings();
+        PlayerItemList.UpdatePlayerList();
+    }
+
+    public void OnClickStartButton()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (GameSetup.instance.checkIfAllPlayersReady() && GameSetup.instance.checkIfTeamsBalanced())
+            {
+                PhotonNetwork.LoadLevel("Game");
+            }
+        }
     }
 
     public override void OnConnectedToMaster()
@@ -87,7 +115,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Debug.Log("Failed to find a room. Trying to create a new room...");
 
         //TODO: RandomRoom name
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = RoomSize });
+        PhotonNetwork.CreateRoom(
+            null,
+            new RoomOptions {
+                MaxPlayers = RoomSize,
+                BroadcastPropsChangeToAll = true
+            });
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)

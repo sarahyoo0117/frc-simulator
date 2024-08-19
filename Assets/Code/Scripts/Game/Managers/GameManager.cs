@@ -7,24 +7,32 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    public GameObject PlayerPrefab;
-    public static GameManager Instance;
+    public GameObject RedPlayerPrefab;
+    public GameObject BluePlayerPrefab;
 
     void Start()
     {
-        Instance = this;
-
         if (PlayerManager.LocalPlayerInstance == null)
         {
-            StartCoroutine(InstantiatePlayer(2));        
+            Team team = (Team) PhotonNetwork.LocalPlayer.CustomProperties["Team"];
+            StartCoroutine(InstantiatePlayer(2, team));        
         }
     }
 
-    IEnumerator InstantiatePlayer(float seconds)
+    IEnumerator InstantiatePlayer(float seconds, Team team)
     {
         yield return new WaitForSeconds(seconds);
-        PhotonNetwork.Instantiate(PlayerPrefab.name, new Vector3(287, 1, 181), Quaternion.identity);
-        print("instantiated");
+        Transform spawn = SpawnManager.instance.GetTeamSpawn(team);
+        switch (team) //TODO: remove repeated team checking
+        {
+            case Team.Red:
+                PhotonNetwork.Instantiate(RedPlayerPrefab.name, spawn.position, Quaternion.identity);
+                break;
+            case Team.Blue:
+                PhotonNetwork.Instantiate(BluePlayerPrefab.name, spawn.position, Quaternion.identity);
+                break;
+        }
+
     }
 
     public void LeaveRoom()
