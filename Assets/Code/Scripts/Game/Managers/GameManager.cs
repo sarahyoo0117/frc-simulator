@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviourPunCallbacks
                 PhotonNetwork.Instantiate(BluePlayerPrefab.name, spawn.position, Quaternion.identity);
                 break;
         }
-
     }
 
     public void LeaveRoom()

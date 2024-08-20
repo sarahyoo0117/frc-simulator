@@ -11,6 +11,8 @@ public enum Team : int
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
+    public static LobbyManager instance;
+
     [Header("Current User Info")]
     public TextMeshProUGUI CurrentUsername;
 
@@ -23,6 +25,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public int RoomSize = 6;
     public TMP_InputField RoomNameInput;
     public TextMeshProUGUI JoinedRoomName;
+    public TextMeshProUGUI PlayerCount;
     [SerializeField]
     private PlayerItemList PlayerItemList;
     public GameObject StartButton;
@@ -31,6 +34,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        instance = this;
+
         if (PhotonNetwork.IsConnected)
         {
             CurrentUsername.text = PhotonNetwork.NickName;
@@ -84,8 +89,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         HomePanel.SetActive(false);
         LobbyPanel.SetActive(true);
         JoinedRoomName.text = PhotonNetwork.CurrentRoom.Name;
+        GameSetup.instance.UpdatePlayerCountText(PlayerCount);
         GameSetup.instance.SetInitialPlayerSettings();
         PlayerItemList.UpdatePlayerList();
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        GameSetup.instance.UpdatePlayerCountText(PlayerCount);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        GameSetup.instance.UpdatePlayerCountText(PlayerCount);
     }
 
     public void OnClickStartButton()

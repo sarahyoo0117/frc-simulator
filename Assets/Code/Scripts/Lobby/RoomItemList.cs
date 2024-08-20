@@ -35,6 +35,7 @@ public class RoomItemList : MonoBehaviourPunCallbacks
         {
             RoomItem newRoomItem = Instantiate(RoomItemPrefab, ParentContent);
             newRoomItem.SetRoomName(room.Name);
+            newRoomItem.SetRoomPlayerCount(room.PlayerCount, room.MaxPlayers);
             roomItems.Add(newRoomItem);
         }
     }

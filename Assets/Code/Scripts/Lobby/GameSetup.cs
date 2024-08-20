@@ -119,6 +119,13 @@ public class GameSetup : MonoBehaviourPunCallbacks
         }
     }
 
+    public void UpdatePlayerCountText(TextMeshProUGUI label)
+    {
+        int playerNum = PhotonNetwork.CurrentRoom.PlayerCount;
+        int roomSize = PhotonNetwork.CurrentRoom.MaxPlayers;
+        label.text = $"{playerNum} / {roomSize}";
+    }
+
     public bool checkIfTeamsBalanced()
     {
         int redCount = 0;
