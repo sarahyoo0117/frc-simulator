@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Level/Scenes/Lobby.unity
     guid: 7a5223c7a6d535f42b55f5a96d020360
   - enabled: 1
+    path: Assets/Level/Scenes/RobotSelection.unity
+    guid: 44c95f4d634b0fb42bd8debdd826786d
+  - enabled: 1
     path: Assets/Level/Scenes/Game.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

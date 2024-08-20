@@ -2,6 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public enum Team : int
 {
@@ -113,6 +114,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
                 PhotonNetwork.LoadLevel("Game");
             }
         }
+    }
+
+    public void onClickChangeRobot()
+    {
+        SceneManager.LoadScene("RobotSelection");
     }
 
     public override void OnConnectedToMaster()
