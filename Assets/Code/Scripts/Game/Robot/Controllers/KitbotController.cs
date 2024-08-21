@@ -94,7 +94,7 @@ public class KitbotController : RobotController
 
     public void ResetAll()
     {
-        robotPV.RPC("RPC_RestAll", RpcTarget.AllBuffered);
+        robotPV.RPC("RPC_ResetAll", RpcTarget.AllBuffered);
     }
 
     [PunRPC]

@@ -55,7 +55,9 @@ public class PlayerInteract : MonoBehaviourPunCallbacks
                         }
                         else if (driverTrig != null)
                         {
-                            driverTrig.ActivateStation(photonView);
+                            int playerViewID = photonView.ViewID;
+                            int robotViewID = (int)PhotonNetwork.LocalPlayer.CustomProperties["RobotViewID"];
+                            driverTrig.ActivateStation(playerViewID, robotViewID);
                         }
                         else
                         {

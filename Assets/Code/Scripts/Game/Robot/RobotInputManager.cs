@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using Photon.Pun;
 
-public class RobotInputManager : MonoBehaviour
+public class RobotInputManager : MonoBehaviourPunCallbacks
 {
     public RobotInput.OnFootActions onFoot;
-    public bool isTeleop;
+    public bool isTeleop; //TODO: implement auto?
     public bool isFeeding;
     public bool isShooting;
 
@@ -15,9 +15,12 @@ public class RobotInputManager : MonoBehaviour
     private RobotInput m_input;
     private RobotNoteInsert m_noteInsert;
     private Animator m_animator;
+    private Camera m_camera;
 
-    private void Start()
+    private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         m_input = new RobotInput();
         onFoot = m_input.OnFoot;
 
@@ -25,11 +28,14 @@ public class RobotInputManager : MonoBehaviour
         m_motor = GetComponent<RobotMotor>();
         m_noteInsert = GetComponent<RobotNoteInsert>();
         m_animator = GetComponent<Animator>();
+        m_camera = GetComponentInChildren<Camera>();
+
+        m_camera.enabled = false;
     }
 
     private void Update()
     {
-        if (isTeleop)
+        if (photonView.IsMine && isTeleop)
         {
             if (isFeeding && !isShooting)
             {
@@ -44,16 +50,6 @@ public class RobotInputManager : MonoBehaviour
 
         if(m_animator != null)
         {
-            if (m_noteInsert.isLoaded)
-            {
-                m_animator.enabled = true;
-            }
-            else
-            {
-                m_animator.Play("Kitbot_Shoot");
-                m_animator.enabled = false;
-            }
-
             m_animator.SetBool("isFeeding", isFeeding);
             m_animator.SetBool("isShooting", isShooting);
         }
@@ -61,14 +57,14 @@ public class RobotInputManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isTeleop)
+        if (photonView.IsMine && isTeleop)
         {
             m_motor.Steer(onFoot.Movement.ReadValue<Vector2>().x);
             m_motor.Accelerate(onFoot.Movement.ReadValue<Vector2>().y);
         }
     }
 
-    private void OnEnable()
+    public override void OnEnable()
     {
         onFoot.Enable();
 
@@ -78,7 +74,7 @@ public class RobotInputManager : MonoBehaviour
         onFoot.Shoot.canceled += ctx => isShooting = false;
     }
 
-    private void OnDisable()
+    public override void OnDisable()
     {
         onFoot.Disable();
     }

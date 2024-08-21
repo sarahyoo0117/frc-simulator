@@ -12,10 +12,12 @@ public class RobotNoteInsert : Interactable
     public bool isLoaded;
 
     private PhotonView robotPV;
+    private Animator m_animator;
 
-    private void Start()
+    private void Awake()
     {
         robotPV = GetComponent<PhotonView>();
+        m_animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -29,6 +31,8 @@ public class RobotNoteInsert : Interactable
 
     public void InsertNote(GameObject note , PlayerHand hand)
     {
+        m_animator.Play("Kitbot_Shoot"); //adjust intial note position
+
         if (isLoaded == false && loadedNote == null)
         {
             PhotonView notePV = note.GetComponent<PhotonView>();

@@ -30,7 +30,9 @@ public class RobotSelection : MonoBehaviour
 
     public void SelectRobot() //TODO
     {
-        Debug.Log("Choosed the robot.");
+        string robotPrefabName = Robots[currentRobot].name;
+        Debug.Log($"Chose {robotPrefabName}.");
+        PlayerPrefs.SetString("SelectedRobot", robotPrefabName);
     }
 
     public void ExitScene()

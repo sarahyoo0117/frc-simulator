@@ -2,23 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using UnityEngine.InputSystem;
 
 public class PlayerInputManager : MonoBehaviourPunCallbacks
 {
-    private PlayerInput playerInput;
     public PlayerInput.OnFootActions onFoot;
 
     private PlayerMotor motor;
     private PlayerLook look;
+    private PlayerInput playerInput;
+    private CharacterController m_controller;
 
-    void Awake()
+    private void Awake()
     {
         playerInput = new PlayerInput();
         onFoot = playerInput.OnFoot;
 
         motor = GetComponent<PlayerMotor>();
         look = GetComponent<PlayerLook>();
+        m_controller = GetComponent<CharacterController>();
 
         onFoot.Jump.performed += ctx => motor.Jump();
         onFoot.Crouch.performed += ctx => motor.Crouch();
@@ -35,7 +36,7 @@ public class PlayerInputManager : MonoBehaviourPunCallbacks
 
     private void LateUpdate()
     {
-        if (photonView.IsMine)
+        if (photonView.IsMine && m_controller.enabled)
         {
             look.ProcessLook(onFoot.Look.ReadValue<Vector2>());
         }

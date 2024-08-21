@@ -16,6 +16,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     [Header("Current User Info")]
     public TextMeshProUGUI CurrentUsername;
+    public TextMeshProUGUI SelectedRobotName;
 
     [Header("Pannels")]
     public GameObject HomePanel;
@@ -54,6 +55,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             StartButton.SetActive(true);
         else
             StartButton.SetActive(false);
+
+        string robotName = PlayerPrefs.GetString("SelectedRobot");
+        if (robotName != null)
+            SelectedRobotName.text = robotName;
+        else
+            SelectedRobotName.text = "None";
     }
 
     public void CreateMyRoom()
@@ -109,7 +116,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            if (GameSetup.instance.checkIfAllPlayersReady() && GameSetup.instance.checkIfTeamsBalanced())
+            if (GameSetup.instance.checkIfAllPlayersReady() )
             {
                 PhotonNetwork.LoadLevel("Game");
             }

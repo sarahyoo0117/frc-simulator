@@ -6,41 +6,67 @@ public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager instance;
 
-    //team spawn points
-    GameObject[] redTeamSpawns;
-    GameObject[] blueTeamSpawns;
+    [Header("Player Spawnpoints")]
+    public Transform[] playerRedSpawns;
+    public Transform[] playerBlueSpawns;
 
-    int r = 0;
-    int b = 0;
+    [Header("Robot Spawnpoints")]
+    public Transform[] robotRedSpawns;
+    public Transform[] robotBlueSpawns;
 
-    private void Start()
+    //player indeces
+    int rP = 0;
+    int bP = 0;
+    //robot indeces
+    int rR, bR;
+
+    private void Awake()
     {
         instance = this;
-        redTeamSpawns = GameObject.FindGameObjectsWithTag("RedSpawn");
-        blueTeamSpawns = GameObject.FindGameObjectsWithTag("BlueSpawn");
+        rR = rP;
+        bR = bP;
     }
 
-    //TODO: assign spawn points randomly but not overlapped
-    public Transform GetRedSpawn()
+    public Transform GetPlayerRedSpawn()
     {
-        if (r >= redTeamSpawns.Length)
-            r = 0;
-        Transform spawn = redTeamSpawns[r].transform;
-        r++;
+        if (rP >= playerRedSpawns.Length)
+            rP = 0;
+        rR = rP;
+        Transform spawn = playerRedSpawns[rP];
+        rP++;
         return spawn;
     }
 
-    public Transform GetBlueSpawn()
+    public Transform GetPlayerBlueSpawn()
     {
-        if (b >= blueTeamSpawns.Length)
-            b = 0;
-        Transform spawn = blueTeamSpawns[b].transform;
-        b++;
+        if (bP >= playerBlueSpawns.Length)
+            bP = 0;
+        bR = bP;
+        Transform spawn = playerBlueSpawns[bP];
+        bP++;
         return spawn;
     }
 
-    public Transform GetTeamSpawn(Team team)
+    //*** always spawn player first to update robot indeces.
+    public Transform GetRobotRedSpawn()
     {
-        return team == Team.Red ? GetRedSpawn() : GetBlueSpawn();
+        Transform spawn = robotRedSpawns[rR];
+        return spawn;
+    }
+
+    public Transform GetRobotBlueSpawn()
+    {
+        Transform spawn = robotBlueSpawns[bR];
+        return spawn;
+    }
+
+    public Transform GetPlayerSpawn(Team team)
+    {
+        return team == Team.Red ? GetPlayerRedSpawn() : GetPlayerBlueSpawn();
+    }
+
+    public Transform GetRobotSpawn(Team team)
+    {
+        return team == Team.Red ? GetRobotRedSpawn() : GetRobotBlueSpawn();
     }
 }

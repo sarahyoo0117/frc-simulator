@@ -25,7 +25,6 @@ public class PlayerLook : MonoBehaviourPunCallbacks
             cam.enabled = false;
             //audioListener.enabled = false;
         }
-      
     }
 
     public void ProcessLook(Vector2 input)

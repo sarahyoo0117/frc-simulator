@@ -6,12 +6,12 @@ using Photon.Pun;
 public class PlayerManager : MonoBehaviourPunCallbacks
 {
     public static GameObject LocalPlayerInstance;
+
     private void Awake()
     {
         if (photonView.IsMine)
         {
             LocalPlayerInstance = gameObject;
-            print(LocalPlayerInstance);
         }
         DontDestroyOnLoad(gameObject);
     }

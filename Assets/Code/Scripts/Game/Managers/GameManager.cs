@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
+using ExitGames.Client.Photon;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -14,24 +15,29 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (PlayerManager.LocalPlayerInstance == null)
         {
-            Team team = (Team) PhotonNetwork.LocalPlayer.CustomProperties["Team"];
-            StartCoroutine(InstantiatePlayer(2, team));        
+            Team team = (Team)PhotonNetwork.LocalPlayer.CustomProperties["Team"];
+            string myRobotName = PlayerPrefs.GetString("SelectedRobot");
+
+            StartCoroutine(InstantiatePlayerAndRobot(2, team, myRobotName));        
         }
     }
 
-    IEnumerator InstantiatePlayer(float seconds, Team team)
+    IEnumerator InstantiatePlayerAndRobot(float seconds, Team team, string robotPrefabName)
     {
         yield return new WaitForSeconds(seconds);
-        Transform spawn = SpawnManager.instance.GetTeamSpawn(team);
-        switch (team) //TODO: remove repeated team checking
-        {
-            case Team.Red:
-                PhotonNetwork.Instantiate(RedPlayerPrefab.name, spawn.position, Quaternion.identity);
-                break;
-            case Team.Blue:
-                PhotonNetwork.Instantiate(BluePlayerPrefab.name, spawn.position, Quaternion.identity);
-                break;
-        }
+        //*** always get player spawn first.
+        Transform playerSpawn = SpawnManager.instance.GetPlayerSpawn(team);
+        Transform robotSpawn = SpawnManager.instance.GetRobotSpawn(team);
+       
+        GameObject playerPrefab = (team == Team.Red) ? RedPlayerPrefab : BluePlayerPrefab;
+        
+        PhotonNetwork.Instantiate(playerPrefab.name, playerSpawn.position, Quaternion.identity);
+        GameObject robotInstance = PhotonNetwork.Instantiate(robotPrefabName, robotSpawn.position, Quaternion.identity);
+
+        int robotViewID = robotInstance.GetComponent<PhotonView>().ViewID;
+        ExitGames.Client.Photon.Hashtable prop = new ExitGames.Client.Photon.Hashtable();
+        prop["RobotViewID"] = robotViewID;
+        PhotonNetwork.SetPlayerCustomProperties(prop);
     }
 
     public void LeaveRoom()
@@ -42,25 +48,5 @@ public class GameManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         SceneManager.LoadScene(0);
-    }
-
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        Debug.LogFormat("OnPlayerEnteredRoom() {0}", newPlayer.NickName);
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient);
-        }
-    }
-
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        Debug.LogFormat("OnPlayerLeftRoom() {0}", otherPlayer.NickName); 
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Debug.LogFormat("OnPlayerLeftRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); 
-        }
     }
 }

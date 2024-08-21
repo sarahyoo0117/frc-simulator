@@ -6,28 +6,26 @@ using Photon.Pun;
 public class DriverTrainTrigger : Interactable
 {
     [Header("Cameras")]
-    public Camera Cam1 = null; //default player main cam
+    public Camera Cam1; //player main cam
     public Camera Cam2; //drive station cam
-    public Camera Cam3; //robot first person cam //TODO: how to assign a robot?
+    public Camera Cam3; //robot main cam
     public int CamManager;
 
-    [Header("Play Settings")] //TODO
-    public CharacterController playerController = null;
-    public GameObject robot; 
-
+    [Header("Play Settings")] 
+    [SerializeField]
+    private CharacterController playerController;
+    [SerializeField]
     private RobotInputManager robotInputManager;
+
     private PhotonView m_PV;
     private Material triggerMaterial;
     private bool isPlaying;
 
-    void Start()
+    private void Awake()
     {
        triggerMaterial = GetComponent<Renderer>().material;
-       robotInputManager = robot.GetComponent<RobotInputManager>();
        m_PV = GetComponent<PhotonView>();
-
-       robotInputManager.isTeleop = false;
-       ActivateCam1();
+       Cam2.enabled = false;
     }
 
     private void Update()
@@ -46,32 +44,6 @@ public class DriverTrainTrigger : Interactable
         }
     }
 
-    public void ActivateStation(PhotonView playerPV)
-    {
-        m_PV.RPC("RPC_ActivateStation", RpcTarget.AllBuffered, playerPV.ViewID);
-    }
-
-    [PunRPC]
-    private void RPC_ActivateStation(int playerViewID)
-    {
-        PhotonView playerPV = PhotonView.Find(playerViewID);
-
-        Cam1 = playerPV.GetComponent<PlayerLook>().cam;
-        playerController = playerPV.GetComponent<CharacterController>();
-
-        isPlaying = true;
-        Cam1.enabled = false;
-        playerController.enabled = false;
-        robotInputManager.isTeleop = true;
-        triggerMaterial.color = Color.red;
-        ActivateCam2();
-    }
-
-    public void ExitStation()
-    {
-        m_PV.RPC("RPC_ExitStation", RpcTarget.AllBuffered);
-    }
-
     public void ManageCamera()
     {
         if (CamManager == 1)
@@ -82,6 +54,16 @@ public class DriverTrainTrigger : Interactable
         {
             ActivateCam2();
         }
+    }
+
+    public void ActivateStation(int playerViewID, int robotViewID)
+    {
+        m_PV.RPC("RPC_ActivateStation", RpcTarget.AllBuffered, playerViewID, robotViewID);
+    }
+
+    public void ExitStation()
+    {
+        m_PV.RPC("RPC_ExitStation", RpcTarget.AllBuffered);
     }
 
     public void ActivateCam1()
@@ -100,6 +82,24 @@ public class DriverTrainTrigger : Interactable
     }
 
     [PunRPC]
+    private void RPC_ActivateStation(int playerViewID, int robotViewID)
+    {
+        PhotonView playerPV = PhotonView.Find(playerViewID);
+        PhotonView robotPV = PhotonView.Find(robotViewID);
+
+        Cam1 = playerPV.GetComponentInChildren<Camera>();
+        Cam3 = robotPV.GetComponentInChildren<Camera>();
+        robotInputManager = robotPV.GetComponent<RobotInputManager>();
+        playerController = playerPV.GetComponent<CharacterController>();
+        
+        isPlaying = true;
+        playerController.enabled = false;
+        robotInputManager.isTeleop = true;
+        triggerMaterial.color = Color.red;
+        ActivateCam2();
+    }
+
+    [PunRPC]
     private void RPC_ExitStation()
     {
         isPlaying = false;
@@ -109,6 +109,8 @@ public class DriverTrainTrigger : Interactable
         ActivateCam1();
 
         Cam1 = null;
+        Cam3 = null;
+        robotInputManager = null;
         playerController = null;
     }
 
