@@ -6,7 +6,7 @@ using Photon.Pun;
 public class RobotInputManager : MonoBehaviourPunCallbacks
 {
     public RobotInput.OnFootActions onFoot;
-    public bool isTeleop; //TODO: implement auto?
+    public bool isTeleop; 
     public bool isFeeding;
     public bool isShooting;
 
@@ -35,7 +35,9 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (photonView.IsMine && isTeleop)
+        if (!photonView.IsMine) return;
+
+        if (isTeleop)
         {
             if (isFeeding && !isShooting)
             {
@@ -57,7 +59,9 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
 
     private void FixedUpdate()
     {
-        if (photonView.IsMine && isTeleop)
+        if (!photonView.IsMine) return;
+
+        if (isTeleop)
         {
             m_motor.Steer(onFoot.Movement.ReadValue<Vector2>().x);
             m_motor.Accelerate(onFoot.Movement.ReadValue<Vector2>().y);
@@ -66,6 +70,7 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
 
     public override void OnEnable()
     {
+        if (!photonView.IsMine) return;
         onFoot.Enable();
 
         onFoot.Feed.started += ctx => isFeeding = true;
@@ -76,6 +81,7 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
 
     public override void OnDisable()
     {
+        if (!photonView.IsMine) return;
         onFoot.Disable();
     }
 }

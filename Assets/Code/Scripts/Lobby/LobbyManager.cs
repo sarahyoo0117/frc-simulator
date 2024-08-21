@@ -115,8 +115,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void OnClickStartButton()
     {
         if (PhotonNetwork.IsMasterClient)
-        {
-            if (GameSetup.instance.checkIfAllPlayersReady() )
+        {   //TODO:add GameSetup.instance.checkIfTeamsBalanced()
+            if (GameSetup.instance.checkIfAllPlayersReady())
             {
                 PhotonNetwork.LoadLevel("Game");
             }

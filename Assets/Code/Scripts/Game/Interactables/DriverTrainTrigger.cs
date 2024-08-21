@@ -20,6 +20,7 @@ public class DriverTrainTrigger : Interactable
     private PhotonView m_PV;
     private Material triggerMaterial;
     private bool isPlaying;
+    private PhotonView playerPV;
 
     private void Awake()
     {
@@ -84,60 +85,76 @@ public class DriverTrainTrigger : Interactable
     [PunRPC]
     private void RPC_ActivateStation(int playerViewID, int robotViewID)
     {
-        PhotonView playerPV = PhotonView.Find(playerViewID);
+        playerPV = PhotonView.Find(playerViewID);
         PhotonView robotPV = PhotonView.Find(robotViewID);
 
-        Cam1 = playerPV.GetComponentInChildren<Camera>();
-        Cam3 = robotPV.GetComponentInChildren<Camera>();
-        robotInputManager = robotPV.GetComponent<RobotInputManager>();
-        playerController = playerPV.GetComponent<CharacterController>();
+        if (playerPV.IsMine)
+        {
+            Cam1 = playerPV.GetComponentInChildren<Camera>();
+            Cam3 = robotPV.GetComponentInChildren<Camera>();
+            robotInputManager = robotPV.GetComponent<RobotInputManager>();
+            playerController = playerPV.GetComponent<CharacterController>();
         
-        isPlaying = true;
-        playerController.enabled = false;
-        robotInputManager.isTeleop = true;
-        triggerMaterial.color = Color.red;
-        ActivateCam2();
+            isPlaying = true;
+            playerController.enabled = false;
+            robotInputManager.isTeleop = true;
+            triggerMaterial.color = Color.red;
+            ActivateCam2();
+        }
     }
 
     [PunRPC]
     private void RPC_ExitStation()
     {
-        isPlaying = false;
-        robotInputManager.isTeleop = false;
-        triggerMaterial.color = Color.green;
-        playerController.enabled = true;
-        ActivateCam1();
+        if (playerPV.IsMine)
+        {
+            isPlaying = false;
+            robotInputManager.isTeleop = false;
+            triggerMaterial.color = Color.green;
+            playerController.enabled = true;
+            ActivateCam1();
 
-        Cam1 = null;
-        Cam3 = null;
-        robotInputManager = null;
-        playerController = null;
+            Cam1 = null;
+            Cam3 = null;
+            playerPV = null;
+            robotInputManager = null;
+            playerController = null;
+        }
     }
 
     [PunRPC]
     private void RPC_ActivateCam1()
     {
-        Cam1.enabled = true;
-        Cam2.enabled = false;
-        Cam3.enabled = false;
-        CamManager = 0;
+        if (playerPV.IsMine)
+        {
+            Cam1.enabled = true;
+            Cam2.enabled = false;
+            Cam3.enabled = false;
+            CamManager = 0;
+        }
     }
 
     [PunRPC]
     private void RPC_ActivateCam2()
     {
-        Cam1.enabled = false;
-        Cam2.enabled = true;
-        Cam3.enabled = false;
-        CamManager = 1;
+        if (playerPV.IsMine)
+        {
+            Cam1.enabled = false;
+            Cam2.enabled = true;
+            Cam3.enabled = false;
+            CamManager = 1;
+        }
     }
 
     [PunRPC]
     private void RPC_ActivateCam3()
     {
-        Cam1.enabled = false;
-        Cam2.enabled = false;
-        Cam3.enabled = true;
-        CamManager = 2;
+        if (playerPV.IsMine)
+        {
+            Cam1.enabled = false;
+            Cam2.enabled = false;
+            Cam3.enabled = true;
+            CamManager = 2;
+        }
     }
 }
