@@ -13,7 +13,6 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
     private RobotController m_controller;
     private RobotMotor m_motor;
     private RobotInput m_input;
-    private RobotNoteInsert m_noteInsert;
     private Animator m_animator;
     private Camera m_camera;
 
@@ -26,7 +25,6 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
 
         m_controller = GetComponent<RobotController>();
         m_motor = GetComponent<RobotMotor>();
-        m_noteInsert = GetComponent<RobotNoteInsert>();
         m_animator = GetComponent<Animator>();
         m_camera = GetComponentInChildren<Camera>();
 

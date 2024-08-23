@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviourPunCallbacks
        
         GameObject playerPrefab = (team == Team.Red) ? RedPlayerPrefab : BluePlayerPrefab;
         
-        PhotonNetwork.Instantiate(playerPrefab.name, playerSpawn.position, Quaternion.identity);
-        GameObject robotInstance = PhotonNetwork.Instantiate(robotPrefabName, robotSpawn.position, Quaternion.identity);
+        PhotonNetwork.Instantiate(playerPrefab.name, playerSpawn.position, playerSpawn.rotation);
+        GameObject robotInstance = PhotonNetwork.Instantiate(robotPrefabName, robotSpawn.position, robotSpawn.rotation);
 
         int robotViewID = robotInstance.GetComponent<PhotonView>().ViewID;
         ExitGames.Client.Photon.Hashtable prop = new ExitGames.Client.Photon.Hashtable();

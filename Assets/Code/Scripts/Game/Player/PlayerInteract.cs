@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class PlayerInteract : MonoBehaviourPunCallbacks
 {
@@ -39,59 +40,67 @@ public class PlayerInteract : MonoBehaviourPunCallbacks
 
             if (Physics.Raycast(ray, out hitInfo, distance, mask))
             {
-                Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-
-                if (interactable != null)
+                Collider detectedObject = hitInfo.collider;
+             
+                if (detectedObject.TryGetComponent<Interactable>(out var interactable))
                 {
-                    playerUI.UpdateText(interactable.promptMessage);
-
-                    if (inputManager.onFoot.Interact.triggered)
-                    {
-                        Pickable pickable = hitInfo.collider.GetComponent<Pickable>();
-                        DriverTrainTrigger driverTrig = hitInfo.collider.GetComponent<DriverTrainTrigger>();
-                        if (pickable != null)
-                        {
-                            hand.PickupItem(pickable.gameObject);
-                        }
-                        else if (driverTrig != null)
-                        {
-                            int playerViewID = photonView.ViewID;
-                            int robotViewID = (int)PhotonNetwork.LocalPlayer.CustomProperties["RobotViewID"];
-                            driverTrig.ActivateStation(playerViewID, robotViewID);
-                        }
-                        else
-                        {
-                            interactable.BaseInteract();
-                        }
-                    }
-                    return;
+                    HandleInteractable(interactable);
                 }
-
-                if (hitInfo.rigidbody != null)
+                
+                if (detectedObject.TryGetComponent<RobotNoteInsert>(out var robot))
                 {
-                    RobotNoteInsert insertable = hitInfo.rigidbody.GetComponent<RobotNoteInsert>();
-
-                    if (insertable == null) return;
-
-                    if (hand.hasNote && insertable.loadedNote == null)
-                    {
-                        playerUI.UpdateText("[E] to load Note");
-
-                        if (inputManager.onFoot.Interact.triggered)
-                        {
-                            insertable.InsertNote(hand.Item, hand);
-                        }
-                    }
-                    else if (!hand.hasItem && insertable.loadedNote != null)
-                    {
-                        playerUI.UpdateText("[E] to unload Note");
-
-                        if (inputManager.onFoot.Interact.triggered)
-                        {
-                            insertable.UnloadNote(hand);
-                        }
-                    }
+                    HandleRobotNoteInteraction(robot);
                 }
+            }
+        }
+    }
+
+    private void HandleInteractable(Interactable interactable)
+    {
+        playerUI.UpdateText(interactable.promptMessage);
+
+        if (inputManager.onFoot.Interact.triggered)
+        {
+            if (interactable is Pickable pickable)
+            {
+                hand.PickupItem(pickable.gameObject);
+            }
+            else if (interactable is DriverTrainTrigger driverTrig)
+            {
+                ActivateDriverTrain(driverTrig);
+            }
+            else
+            {
+                interactable.BaseInteract();
+            }
+        }
+    }
+
+    private void ActivateDriverTrain(DriverTrainTrigger driverTrig)
+    {
+        int playerViewID = photonView.ViewID;
+        int robotViewID = (int)PhotonNetwork.LocalPlayer.CustomProperties["RobotViewID"];
+        driverTrig.ActivateStation(playerViewID, robotViewID);
+    }
+
+    private void HandleRobotNoteInteraction(RobotNoteInsert robot)
+    {
+        if (hand.hasNote && robot.loadedNote == null)
+        {
+            playerUI.UpdateText("[E] to load Note");
+
+            if (inputManager.onFoot.Interact.triggered)
+            {
+                robot.InsertNote(hand.Item, hand);
+            }
+        }
+        else if (!hand.hasItem && robot.loadedNote != null)
+        {
+            playerUI.UpdateText("[E] to unload Note");
+
+            if (inputManager.onFoot.Interact.triggered)
+            {
+                robot.UnloadNote(hand);
             }
         }
     }
