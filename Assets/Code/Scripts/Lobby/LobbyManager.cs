@@ -2,7 +2,6 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public enum Team : int
 {
@@ -21,7 +20,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Header("Pannels")]
     public GameObject HomePanel;
     public GameObject LobbyPanel;
-    public GameObject progressLabel;
 
     [Header("Room Settings")]
     public int RoomSize = 6;
@@ -31,8 +29,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private PlayerItemList PlayerItemList;
     public GameObject StartButton;
-
-    // bool isConnecting;
 
     private void Start()
     {
@@ -45,7 +41,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
 
         HomePanel.SetActive(true);
-        progressLabel.SetActive(false);
         LobbyPanel.SetActive(false);
     }
 
@@ -118,14 +113,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {   //TODO:add GameSetup.instance.checkIfTeamsBalanced()
             if (GameSetup.instance.checkIfAllPlayersReady())
             {
-                PhotonNetwork.LoadLevel("Game");
+                LevelManager.instance.LoadPhotonLevel("Game");
             }
         }
     }
 
     public void onClickChangeRobot()
     {
-        SceneManager.LoadScene("RobotSelection");
+        LevelManager.instance.LoadScene("RobotSelection");
     }
 
     public override void OnConnectedToMaster()

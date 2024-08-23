@@ -26,7 +26,7 @@ public class SpawnManager : MonoBehaviour
         rR = rP;
         bR = bP;
     }
-
+    //TODO: sync index values
     public Transform GetPlayerRedSpawn()
     {
         if (rP >= playerRedSpawns.Length)
