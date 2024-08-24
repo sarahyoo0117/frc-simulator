@@ -1,0 +1,8 @@
+newmtl M_Black
+Kd 0 0 0
+d 1
+
+newmtl M_Metal
+Kd 0.5660378 0.5660378 0.5660378
+d 1
+

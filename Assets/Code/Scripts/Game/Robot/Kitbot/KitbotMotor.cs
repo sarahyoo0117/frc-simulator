@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class RobotMotor : MonoBehaviour
+public class KitbotMotor : RobotMotor
 {
     [Header("Wheel Colliders")]
     public List<WheelCollider> totteringWheels;
@@ -13,9 +12,8 @@ public class RobotMotor : MonoBehaviour
     [Header("Robot Settings")]
     public float motorForce = 300f;
     public float maxSteerAngle = 80f;
-    public bool canSwerve;
 
-    public void Steer(float horizontalInput)
+    public override void Steer(float horizontalInput)
     {
         foreach (WheelCollider wheel in steeringWheels)
         {
@@ -23,7 +21,7 @@ public class RobotMotor : MonoBehaviour
         }
     }
 
-    public void Accelerate(float virticalInput)
+    public override void Accelerate(float virticalInput)
     {
         foreach(WheelCollider wheel in totteringWheels)
         {

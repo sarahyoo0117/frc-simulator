@@ -49,7 +49,7 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
         }
 
         if(m_animator != null)
-        {
+        {//TODO: sync animation (photon pun)
             m_animator.SetBool("isFeeding", isFeeding);
             m_animator.SetBool("isShooting", isShooting);
         }

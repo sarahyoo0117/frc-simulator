@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class RobotNoteInsert : Interactable
+public abstract class RobotNoteInsert : Interactable
 {
     [Header("Note Settings")]
     public GameObject loadedNote;
     public Transform notePosition;
     public bool isLoaded;
 
-    private PhotonView robotPV;
-    private Animator m_animator;
+    protected PhotonView robotPV;
+    protected Animator m_animator;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         robotPV = GetComponent<PhotonView>();
         m_animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (isLoaded && loadedNote != null)
         {
@@ -28,11 +28,9 @@ public class RobotNoteInsert : Interactable
         }
     }
 
-    public void InsertNote(GameObject note , PlayerHand hand)
+    public virtual void InsertNote(GameObject note, PlayerHand hand)
     {
-        m_animator.Play("Kitbot_Shoot"); //adjust intial note position
-
-        if (isLoaded == false && loadedNote == null)
+        if (!isLoaded && loadedNote == null)
         {
             PhotonView notePV = note.GetComponent<PhotonView>();
             PhotonView playerPV = hand.gameObject.GetComponent<PhotonView>();
@@ -44,23 +42,39 @@ public class RobotNoteInsert : Interactable
         }
     }
 
-    public void UnloadNote(PlayerHand hand)
+    public virtual void UnloadNote(PlayerHand hand)
     {
-       if (isLoaded && loadedNote != null)
+        if (isLoaded && loadedNote != null)
         {
             hand.PickupItem(loadedNote);
             robotPV.RPC("RPC_UnloadNote", RpcTarget.AllBuffered);
         }
     }
 
+    public virtual void IgnoreCollsionWithNote(GameObject note)
+    {
+        if (loadedNote != null && note == null)
+        {
+            Collider noteCol = note.GetComponent<Collider>();
+            Collider[] _colliders = GetComponentsInChildren<Collider>();
+
+            foreach (Collider collider in _colliders)
+            {
+                Physics.IgnoreCollision(collider, noteCol);
+            }
+        }
+    }
+
     [PunRPC]
-    private void RPC_InsertNote(int noteViewID, int playerViewID)
+    protected virtual void RPC_InsertNote(int noteViewID, int playerViewID)
     {
         PhotonView notePV = PhotonView.Find(noteViewID);
         PhotonView playerPV = PhotonView.Find(playerViewID);
 
         if (notePV != null && playerPV != null)
         {
+            IgnoreCollsionWithNote(notePV.gameObject);
+
             Transform trans = notePV.transform;
             trans.parent = notePosition;
             trans.localPosition = Vector3.zero;
@@ -77,9 +91,10 @@ public class RobotNoteInsert : Interactable
     }
 
     [PunRPC]
-    private void RPC_UnloadNote()
+    protected virtual void RPC_UnloadNote()
     {
         loadedNote = null;
         isLoaded = false;
     }
 }
+
