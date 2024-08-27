@@ -11,10 +11,12 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
     public bool isShooting;
 
     private RobotController m_controller;
-    private RobotMotor m_motor;
+    private RobotDrive m_drive;
     private RobotInput m_input;
     private Animator m_animator;
     private Camera m_camera;
+
+    Vector2 leftStick, rightStick;
 
     private void Awake()
     {
@@ -24,7 +26,7 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
         onFoot = m_input.OnFoot;
 
         m_controller = GetComponent<RobotController>();
-        m_motor = GetComponent<RobotMotor>();
+        m_drive = GetComponent<RobotDrive>();
         m_animator = GetComponent<Animator>();
         m_camera = GetComponentInChildren<Camera>();
 
@@ -61,8 +63,12 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
 
         if (isTeleop)
         {
-            m_motor.Steer(onFoot.Movement.ReadValue<Vector2>().x);
-            m_motor.Accelerate(onFoot.Movement.ReadValue<Vector2>().y);
+            leftStick = onFoot.Movement.ReadValue<Vector2>();
+            rightStick = onFoot.Look.ReadValue<Vector2>();
+
+            m_drive.Steer(leftStick, rightStick);
+            m_drive.Rotate(rightStick.x);
+            m_drive.Accelerate(leftStick, rightStick);
         }
     }
 
