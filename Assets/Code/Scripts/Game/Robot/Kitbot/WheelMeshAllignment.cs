@@ -13,6 +13,6 @@ public class WheelMeshAllignment : MonoBehaviour
         rpm = WheelCollider.rpm;
         rotationAngle = rpm / 60 * 360 * Time.deltaTime;
 
-        transform.Rotate(0, 0, rotationAngle);
+        transform.Rotate(rotationAngle, 0, 0);
     }
 }
