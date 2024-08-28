@@ -8,7 +8,7 @@ public class KitbotController : RobotController
     public GameObject Motor1;
     public GameObject Motor2;
 
-    private float z = 0f;
+    private float Z = 0f;
 
     protected override void Awake()
     {
@@ -22,7 +22,7 @@ public class KitbotController : RobotController
 
     public override void Feed()
     {
-        z -= Time.deltaTime * shootForce;
+        Z -= Time.deltaTime * shootForce;
         RotateMotors();
 
         base.Feed();
@@ -30,7 +30,7 @@ public class KitbotController : RobotController
 
     public override void Shoot()
     {
-        z += Time.deltaTime * shootForce;
+        Z += Time.deltaTime * shootForce;
         RotateMotors();
 
         base.Shoot();
@@ -40,8 +40,8 @@ public class KitbotController : RobotController
     {
         if (Motor1 && Motor2)
         {
-            Motor1.transform.localRotation = Quaternion.Euler(90, 0, z);
-            Motor2.transform.localRotation = Quaternion.Euler(90, 0, z);
+            Motor1.transform.localRotation = Quaternion.Euler(0, 0, Z);
+            Motor2.transform.localRotation = Quaternion.Euler(0, 0, Z);
         }
     }
 }

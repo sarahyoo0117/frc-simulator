@@ -5,11 +5,8 @@ using Photon.Pun;
 
 public abstract class RobotController : MonoBehaviour
 {
-    public static RobotController instance;
-
     [Header("Loaded Note")]
     [SerializeField]
-    public GameObject note;
     public float shootForce = 300f;
 
     protected RobotNoteInsert m_insert;
@@ -21,7 +18,6 @@ public abstract class RobotController : MonoBehaviour
 
     protected virtual void Awake()
     {
-        instance = this;
         robotPV = GetComponent<PhotonView>();
         m_insert = GetComponent<RobotNoteInsert>();
     }
@@ -40,14 +36,14 @@ public abstract class RobotController : MonoBehaviour
 
     public virtual void Shoot()
     {
-        if (note != null)
-            hasFeeded = true;
+        if (hasFeeded)
+            isShootingNote = true;
     }
 
     public virtual void Feed()
     {
-        if (hasFeeded)
-            isShootingNote = true;
+        if (m_insert.loadedNote != null)
+            hasFeeded = true;
     }
 
     public virtual void ShootNote()
@@ -64,7 +60,7 @@ public abstract class RobotController : MonoBehaviour
     [PunRPC]
     protected virtual void RPC_ShootNote()
     {
-        Rigidbody noteRb = note.GetComponent<Rigidbody>();
+        Rigidbody noteRb = m_insert.loadedNote.GetComponent<Rigidbody>();
         Collider noteCollider = noteRb.GetComponent<Collider>();
 
         if (noteRb == null || noteCollider == null)
@@ -75,7 +71,7 @@ public abstract class RobotController : MonoBehaviour
 
         noteRb.isKinematic = false;
         noteCollider.enabled = true;
-        noteRb.AddForce(note.transform.forward * shootForce, ForceMode.Impulse);
+        noteRb.AddForce(m_insert.loadedNote.transform.forward * shootForce, ForceMode.Impulse);
 
         isShootingNote = false;
         hasBeenShooted = true;
@@ -84,10 +80,9 @@ public abstract class RobotController : MonoBehaviour
     [PunRPC]
     protected virtual void RPC_ResetAll()
     {
-        m_insert.isLoaded = false;
+        m_insert.loadedNote.transform.parent = null;
         m_insert.loadedNote = null;
-        note.transform.parent = null;
-        note = null;
+        m_insert.isLoaded = false;
         hasBeenShooted = false;
         hasFeeded = false;
     }
