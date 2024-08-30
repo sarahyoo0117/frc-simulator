@@ -19,6 +19,15 @@ public abstract class RobotNoteInsert : Interactable
         m_animator = GetComponent<Animator>();
     }
 
+    protected virtual void Update()
+    {
+        if (loadedNote != null)
+        {
+            loadedNote.transform.localPosition = Vector3.zero;
+            loadedNote.transform.localRotation = Quaternion.identity;
+        }
+    }
+
     public virtual void InsertNote(GameObject note, PlayerHand hand)
     {
         if (!isLoaded && loadedNote == null)

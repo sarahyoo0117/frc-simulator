@@ -10,11 +10,6 @@ public class SwervebotController : RobotController
         base.Awake();
     }
 
-    protected override void Update()
-    {
-        base.Update();
-    }
-
     public override void Feed()
     {
         base.Feed();

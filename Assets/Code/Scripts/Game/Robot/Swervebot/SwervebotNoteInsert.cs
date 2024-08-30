@@ -9,6 +9,11 @@ public class SwervebotNoteInsert : RobotNoteInsert
         base.Awake();
     }
 
+    protected override void Update()
+    {
+        base.Update();
+    }
+
     public override void InsertNote(GameObject note, PlayerHand hand)
     {
         base.InsertNote(note, hand);

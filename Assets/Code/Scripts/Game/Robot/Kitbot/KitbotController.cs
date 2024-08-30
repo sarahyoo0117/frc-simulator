@@ -7,7 +7,10 @@ public class KitbotController : RobotController
     [Header("Motor Settings")]
     public GameObject Motor1;
     public GameObject Motor2;
+    public float unFeededShootSpeed = 150f;
 
+    [SerializeField]
+    private bool hasFeeded;
     private float Z = 0f;
 
     protected override void Awake()
@@ -15,25 +18,29 @@ public class KitbotController : RobotController
         base.Awake();
     }
 
-    protected override void Update()
-    {
-        base.Update();
-    }
-
     public override void Feed()
     {
-        Z -= Time.deltaTime * shootForce;
+        Z -= Time.deltaTime * defaultShootForce;
         RotateMotors();
 
-        base.Feed();
+        if (m_insert.isLoaded)
+            hasFeeded = true;
     }
 
     public override void Shoot()
     {
-        Z += Time.deltaTime * shootForce;
+        Z += Time.deltaTime * defaultShootForce;
         RotateMotors();
 
-        base.Shoot();
+        if (hasFeeded)
+        {
+            base.Shoot();
+            hasFeeded = false;
+        }
+        else if (m_insert.isLoaded && !hasFeeded)
+        {
+            ShootNote(unFeededShootSpeed);
+        }
     }
 
     private void RotateMotors()

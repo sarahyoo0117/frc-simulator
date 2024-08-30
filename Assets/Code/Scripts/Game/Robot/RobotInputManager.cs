@@ -39,21 +39,14 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
 
         if (isTeleop)
         {
-            if (isFeeding && !isShooting)
+            if (isFeeding)
             {
                 m_controller.Feed();
             }
-
-            if (isShooting && !isFeeding)
+            if (isShooting)
             {
                 m_controller.Shoot();
             }
-        }
-
-        if(m_animator != null)
-        {//TODO: sync animation (photon pun)
-            m_animator.SetBool("isFeeding", isFeeding);
-            m_animator.SetBool("isShooting", isShooting);
         }
     }
 
@@ -63,11 +56,15 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
 
         if (isTeleop)
         {
+            //TODO: Sync animations
+            m_animator.SetBool("isFeeding", isFeeding);
+            m_animator.SetBool("isShooting", isShooting);
+
             leftStick = onFoot.Movement.ReadValue<Vector2>();
             rightStick = onFoot.Look.ReadValue<Vector2>();
 
             m_drive.Steer(leftStick, rightStick);
-            m_drive.Rotate(rightStick.x); //TODO
+            m_drive.Rotate(rightStick.x); //TODO: fix robot rotation
             m_drive.Accelerate(leftStick, rightStick);
         }
     }

@@ -9,6 +9,11 @@ public class KitbotNoteInsert : RobotNoteInsert
         base.Awake();
     }
 
+    protected override void Update()
+    {
+        base.Update();
+    }
+
     public override void InsertNote(GameObject note, PlayerHand hand)
     {
         m_animator.Play("Kitbot_Shoot");

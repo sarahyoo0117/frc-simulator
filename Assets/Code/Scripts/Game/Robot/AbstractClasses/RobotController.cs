@@ -7,50 +7,34 @@ public abstract class RobotController : MonoBehaviour
 {
     [Header("Loaded Note")]
     [SerializeField]
-    public float shootForce = 300f;
+    public float defaultShootForce = 300f;
 
     protected RobotNoteInsert m_insert;
     protected PhotonView robotPV;
-
-    protected bool hasFeeded = false;
-    protected bool isShootingNote = false;
-    protected bool hasBeenShooted = false;
+    protected GameObject worldObjectsHolder;
 
     protected virtual void Awake()
     {
-        robotPV = GetComponent<PhotonView>();
         m_insert = GetComponent<RobotNoteInsert>();
-    }
-
-    protected virtual void Update()
-    {
-        if (isShootingNote)
-        {
-            ShootNote();
-        }
-        if (hasBeenShooted)
-        {
-            ResetAll();
-        }
-    }
-
-    public virtual void Shoot()
-    {
-        if (hasFeeded)
-            isShootingNote = true;
+        robotPV = GetComponent<PhotonView>();
+        worldObjectsHolder = GameObject.FindGameObjectWithTag("WorldObjects");
     }
 
     public virtual void Feed()
     {
-        if (m_insert.loadedNote != null)
-            hasFeeded = true;
+
     }
 
-    public virtual void ShootNote()
+    public virtual void Shoot()
     {
-        robotPV.RPC("RPC_ShootNote", RpcTarget.AllBuffered);
+        if (m_insert.isLoaded)
+            ShootNote(defaultShootForce);
     }
 
+    public virtual void ShootNote(float shootForce)
+    {
+        robotPV.RPC("RPC_ShootNote", RpcTarget.AllBuffered, shootForce);
+    }
 
     public virtual void ResetAll()
     {
@@ -58,32 +42,23 @@ public abstract class RobotController : MonoBehaviour
     }
 
     [PunRPC]
-    protected virtual void RPC_ShootNote()
+    protected virtual void RPC_ShootNote(float shootForce)
     {
         Rigidbody noteRb = m_insert.loadedNote.GetComponent<Rigidbody>();
         Collider noteCollider = noteRb.GetComponent<Collider>();
-
-        if (noteRb == null || noteCollider == null)
-        {
-            Debug.LogWarning("Note Rigidbody or Collider is missing!");
-            return;
-        }
 
         noteRb.isKinematic = false;
         noteCollider.enabled = true;
         noteRb.AddForce(m_insert.loadedNote.transform.forward * shootForce, ForceMode.Impulse);
 
-        isShootingNote = false;
-        hasBeenShooted = true;
+        ResetAll();
     }
 
     [PunRPC]
     protected virtual void RPC_ResetAll()
     {
-        m_insert.loadedNote.transform.parent = null;
+        m_insert.loadedNote.transform.parent = worldObjectsHolder.transform;
         m_insert.loadedNote = null;
         m_insert.isLoaded = false;
-        hasBeenShooted = false;
-        hasFeeded = false;
     }
 }
