@@ -68,6 +68,7 @@ public class PlayerHand : MonoBehaviourPunCallbacks
 
             Rigidbody rb = objectPV.GetComponent<Rigidbody>();
             Collider col = objectPV.GetComponent<Collider>();
+
             if (rb != null && col != null)
             {
                 rb.isKinematic = true;

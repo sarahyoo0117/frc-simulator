@@ -60,6 +60,7 @@ MonoBehaviour:
   - RPC_JoinTeam
   - RPC_UpdatePlayerCount
   - RPC_RotateMotors
+  - RPC_FeedNote
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

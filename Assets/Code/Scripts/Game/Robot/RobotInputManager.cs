@@ -67,7 +67,7 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
             rightStick = onFoot.Look.ReadValue<Vector2>();
 
             m_drive.Steer(leftStick, rightStick);
-            m_drive.Rotate(rightStick.x);
+            m_drive.Rotate(rightStick.x); //TODO
             m_drive.Accelerate(leftStick, rightStick);
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SwerveDrive : RobotDrive
 {
     public Wheel frontLeft, frontRight, backLeft, backRight;
-    public float motorForce = 100f;
+    public float motorForce = 300f;
 
     public override void Rotate(float rightHorizontal)
     {
@@ -30,6 +30,7 @@ public class SwerveDrive : RobotDrive
         frontRight.SetTorque(GetFrontRightVector(leftStick, rightHorizontal).magnitude * motorForce);
         backLeft.SetTorque(GetBackLeftVector(leftStick, rightHorizontal).magnitude * motorForce);
         backRight.SetTorque(GetBackRightVector(leftStick, rightHorizontal).magnitude * motorForce);
+
     }
 
     private Vector2 ApplyRobotRotation(Vector2 originalVector)

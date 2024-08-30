@@ -46,9 +46,9 @@ WheelCollider:
     spring: 35000
     damper: 4500
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.01
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 1
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -152,9 +152,9 @@ WheelCollider:
     spring: 35000
     damper: 4500
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.01
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 1
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -223,9 +223,9 @@ WheelCollider:
     spring: 35000
     damper: 4500
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.01
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 1
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -294,9 +294,9 @@ WheelCollider:
     spring: 35000
     damper: 4500
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.01
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 1
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -350,6 +350,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 816726666850856898}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5842956129481313290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5270210353822411199}
+  - component: {fileID: 7769154300051034688}
+  m_Layer: 0
+  m_Name: IntakeCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5270210353822411199
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5842956129481313290}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -1.3930001, y: 0.7579999, z: 0.01999998}
+  m_LocalScale: {x: 0.044157892, y: 0.044157896, z: 0.1262435}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6761068922316473948}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!64 &7769154300051034688
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5842956129481313290}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300018, guid: f3cb3c8f5cd4b514ebf9fbfda32cb36d, type: 3}
 --- !u!1 &7181576319529022143
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,6 +455,7 @@ GameObject:
   - component: {fileID: 2281110685087339603}
   - component: {fileID: 3498250712185367679}
   - component: {fileID: 1866071197543430488}
+  - component: {fileID: 8871527712583976072}
   - component: {fileID: 7527035906763442025}
   - component: {fileID: 4392736464750763933}
   m_Layer: 6
@@ -527,7 +582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c3487bc436d5424c8cfd9712ecaa6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  note: {fileID: 0}
   shootForce: 300
 --- !u!114 &3498250712185367679
 MonoBehaviour:
@@ -563,7 +617,21 @@ MonoBehaviour:
   frontRight: {fileID: 7899861632725699177}
   backLeft: {fileID: 299459297283538763}
   backRight: {fileID: 826912572077132196}
-  motorForce: 300
+  motorForce: 500
+--- !u!114 &8871527712583976072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7500052114715636790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae4bc5f407c9ddb4587c3a39e6f1a8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_insert: {fileID: 0}
+  robotPV: {fileID: 0}
 --- !u!114 &7527035906763442025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1312,7 +1380,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9ccf871b0aab21a4c80810c93a5142f1, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 5270210353822411199}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ccf871b0aab21a4c80810c93a5142f1, type: 3}
 --- !u!4 &6761068922316473948 stripped

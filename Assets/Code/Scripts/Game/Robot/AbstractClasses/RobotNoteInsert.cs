@@ -19,15 +19,6 @@ public abstract class RobotNoteInsert : Interactable
         m_animator = GetComponent<Animator>();
     }
 
-    protected virtual void Update()
-    {
-        if (isLoaded && loadedNote != null)
-        {
-            loadedNote.transform.localPosition = Vector3.zero;
-            loadedNote.transform.localRotation = Quaternion.identity;
-        }
-    }
-
     public virtual void InsertNote(GameObject note, PlayerHand hand)
     {
         if (!isLoaded && loadedNote == null)
@@ -51,20 +42,6 @@ public abstract class RobotNoteInsert : Interactable
         }
     }
 
-    public virtual void IgnoreCollsionWithNote(GameObject note)
-    {
-        if (loadedNote != null && note == null)
-        {
-            Collider noteCol = note.GetComponent<Collider>();
-            Collider[] _colliders = GetComponentsInChildren<Collider>();
-
-            foreach (Collider collider in _colliders)
-            {
-                Physics.IgnoreCollision(collider, noteCol);
-            }
-        }
-    }
-
     [PunRPC]
     protected virtual void RPC_InsertNote(int noteViewID, int playerViewID)
     {
@@ -73,7 +50,8 @@ public abstract class RobotNoteInsert : Interactable
 
         if (notePV != null && playerPV != null)
         {
-            IgnoreCollsionWithNote(notePV.gameObject);
+            notePV.GetComponent<Rigidbody>().isKinematic = true;
+            notePV.GetComponent<Collider>().enabled = false;
 
             Transform trans = notePV.transform;
             trans.parent = notePosition;
