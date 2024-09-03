@@ -839,10 +839,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ec6566d0f64a946bd12d320c2c78a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultShootForce: 300
+  shootForce: 300
+  readyToShoot: 0
   Motor1: {fileID: 3166092042483479227}
   Motor2: {fileID: 4036141765357773173}
-  unFeededShootSpeed: 150
+  unFeededShootForce: 150
   hasFeeded: 0
 --- !u!114 &888783386141716280
 MonoBehaviour:

@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class SpawnManager : MonoBehaviour
 {
-    public static SpawnManager instance;
-
     [Header("Player Spawnpoints")]
     public Transform[] playerRedSpawns;
     public Transform[] playerBlueSpawns;
@@ -14,49 +13,58 @@ public class SpawnManager : MonoBehaviour
     public Transform[] robotRedSpawns;
     public Transform[] robotBlueSpawns;
 
-    //player indeces
-    int rP = 0;
-    int bP = 0;
-    //robot indeces
-    int rR, bR;
+    ExitGames.Client.Photon.Hashtable roomProperties;
+    int redSpawnIndex = 0;
+    int blueSpawnIndex = 0;
 
     private void Awake()
     {
-        instance = this;
-        rR = rP;
-        bR = bP;
+        roomProperties = new ExitGames.Client.Photon.Hashtable()
+        {
+            {"RedSpawnIndex", redSpawnIndex },
+            {"BlueSpawnIndex", blueSpawnIndex }
+        };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
     }
-    //TODO: sync index values
-    public Transform GetPlayerRedSpawn()
+
+    //Spawn player first.
+    private Transform GetPlayerRedSpawn()
     {
-        if (rP >= playerRedSpawns.Length)
-            rP = 0;
-        rR = rP;
-        Transform spawn = playerRedSpawns[rP];
-        rP++;
+        redSpawnIndex = (int)PhotonNetwork.CurrentRoom.CustomProperties["RedSpawnIndex"];
+
+        if (redSpawnIndex >= playerRedSpawns.Length)
+            redSpawnIndex = 0;
+
+        Transform spawn = playerRedSpawns[redSpawnIndex];
         return spawn;
     }
 
-    public Transform GetPlayerBlueSpawn()
+    private Transform GetPlayerBlueSpawn()
     {
-        if (bP >= playerBlueSpawns.Length)
-            bP = 0;
-        bR = bP;
-        Transform spawn = playerBlueSpawns[bP];
-        bP++;
+        blueSpawnIndex = (int)PhotonNetwork.CurrentRoom.CustomProperties["RedSpawnIndex"];
+
+        if (blueSpawnIndex >= playerBlueSpawns.Length)
+            blueSpawnIndex = 0;
+
+        Transform spawn = playerBlueSpawns[blueSpawnIndex];
         return spawn;
     }
 
-    //*** always spawn player first to update robot indeces.
-    public Transform GetRobotRedSpawn()
+    private Transform GetRobotRedSpawn()
     {
-        Transform spawn = robotRedSpawns[rR];
+        Transform spawn = robotRedSpawns[redSpawnIndex];
+        redSpawnIndex++;
+        roomProperties["RedSpawnIndex"] = redSpawnIndex;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
         return spawn;
     }
 
-    public Transform GetRobotBlueSpawn()
+    private Transform GetRobotBlueSpawn()
     {
-        Transform spawn = robotBlueSpawns[bR];
+        Transform spawn = robotBlueSpawns[blueSpawnIndex];
+        blueSpawnIndex++;
+        roomProperties["BlueSpawnIndex"] = blueSpawnIndex;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
         return spawn;
     }
 
