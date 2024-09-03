@@ -5,9 +5,10 @@ using Photon.Pun;
 
 public abstract class RobotController : MonoBehaviour
 {
-    [Header("Loaded Note")]
+    [Header("Shoot Settings")]
     [SerializeField]
-    public float defaultShootForce = 300f;
+    public float shootForce = 300f;
+    public bool readyToShoot;
 
     protected RobotNoteInsert m_insert;
     protected PhotonView robotPV;
@@ -28,7 +29,7 @@ public abstract class RobotController : MonoBehaviour
     public virtual void Shoot()
     {
         if (m_insert.isLoaded)
-            ShootNote(defaultShootForce);
+            ShootNote(shootForce);
     }
 
     public virtual void ShootNote(float shootForce)
@@ -44,6 +45,8 @@ public abstract class RobotController : MonoBehaviour
     [PunRPC]
     protected virtual void RPC_ShootNote(float shootForce)
     {
+        if (m_insert.loadedNote == null) return;
+
         Rigidbody noteRb = m_insert.loadedNote.GetComponent<Rigidbody>();
         Collider noteCollider = noteRb.GetComponent<Collider>();
 
@@ -60,5 +63,10 @@ public abstract class RobotController : MonoBehaviour
         m_insert.loadedNote.transform.parent = worldObjectsHolder.transform;
         m_insert.loadedNote = null;
         m_insert.isLoaded = false;
+    }
+
+    public virtual void OnShootAnimationComplete()
+    {
+        readyToShoot = true;
     }
 }

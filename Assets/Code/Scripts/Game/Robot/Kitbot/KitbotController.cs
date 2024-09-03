@@ -7,7 +7,7 @@ public class KitbotController : RobotController
     [Header("Motor Settings")]
     public GameObject Motor1;
     public GameObject Motor2;
-    public float unFeededShootSpeed = 150f;
+    public float unFeededShootForce = 150f;
 
     [SerializeField]
     private bool hasFeeded;
@@ -20,16 +20,16 @@ public class KitbotController : RobotController
 
     public override void Feed()
     {
-        Z -= Time.deltaTime * defaultShootForce;
+        Z -= Time.deltaTime * shootForce;
         RotateMotors();
-
+        
         if (m_insert.isLoaded)
             hasFeeded = true;
     }
 
     public override void Shoot()
     {
-        Z += Time.deltaTime * defaultShootForce;
+        Z += Time.deltaTime * shootForce;
         RotateMotors();
 
         if (hasFeeded)
@@ -39,7 +39,7 @@ public class KitbotController : RobotController
         }
         else if (m_insert.isLoaded && !hasFeeded)
         {
-            ShootNote(unFeededShootSpeed);
+            ShootNote(unFeededShootForce);
         }
     }
 

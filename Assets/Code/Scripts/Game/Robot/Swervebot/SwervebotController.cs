@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SwervebotController : RobotController
 {
-
     protected override void Awake()
     {
         base.Awake();
@@ -17,6 +16,21 @@ public class SwervebotController : RobotController
 
     public override void Shoot()
     {
-        base.Shoot();
+        if (m_insert.isLoaded && readyToShoot)
+        {
+            StartCoroutine(ShootNoteDelayed(0.5f));
+        }
+    }
+
+    IEnumerator ShootNoteDelayed(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        ShootNote(shootForce);
+    }
+
+    public override void OnShootAnimationComplete()
+    {
+        base.OnShootAnimationComplete();
     }
 }

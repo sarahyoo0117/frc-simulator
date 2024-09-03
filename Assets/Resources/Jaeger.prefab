@@ -344,7 +344,7 @@ Transform:
   m_GameObject: {fileID: 4954394766610196167}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.035, y: 0.639324, z: 0.0472209}
+  m_LocalPosition: {x: 0.035, y: 0.639324, z: 0.448}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -581,10 +581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c3487bc436d5424c8cfd9712ecaa6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootForce: 300
-  hasFeeded: 0
-  isShootingNote: 0
-  hasBeenShooted: 0
+  shootForce: 380
+  readyToShoot: 0
 --- !u!114 &3498250712185367679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,7 +631,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_insert: {fileID: 0}
-  m_controller: {fileID: 0}
   robotPV: {fileID: 0}
 --- !u!114 &7527035906763442025
 MonoBehaviour:
@@ -1413,7 +1410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6492c11bc7a1bf0468672342856f897c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.03
+      value: 0.186
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6492c11bc7a1bf0468672342856f897c, type: 3}
       propertyPath: m_LocalRotation.w

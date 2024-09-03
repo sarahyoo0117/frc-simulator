@@ -72,17 +72,21 @@ public class RobotInputManager : MonoBehaviourPunCallbacks
     public override void OnEnable()
     {
         if (!photonView.IsMine) return;
-        onFoot.Enable();
+        m_input.Enable();
 
         onFoot.Feed.started += ctx => isFeeding = true;
         onFoot.Feed.canceled += ctx => isFeeding = false;
         onFoot.Shoot.started += ctx => isShooting = true;
-        onFoot.Shoot.canceled += ctx => isShooting = false;
+        onFoot.Shoot.canceled += ctx =>
+        {
+            isShooting = false;
+            m_controller.readyToShoot = false;
+        };
     }
 
     public override void OnDisable()
     {
         if (!photonView.IsMine) return;
-        onFoot.Disable();
+        m_input.Disable();
     }
 }
